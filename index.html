@@ -845,6 +845,189 @@
 
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
+  /* ===== ARTICLE MODAL ===== */
+  .modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(17,17,16,0.6);
+    z-index: 200;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding: 40px 20px;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+    overflow-y: auto;
+  }
+
+  .modal-overlay.open {
+    opacity: 1;
+    pointer-events: all;
+  }
+
+  .modal-box {
+    background: var(--c60);
+    width: 100%;
+    max-width: 720px;
+    border-radius: 6px;
+    overflow: hidden;
+    transform: translateY(30px);
+    transition: transform 0.35s ease;
+    box-shadow: 0 24px 80px rgba(0,0,0,0.18);
+    position: relative;
+  }
+
+  .modal-overlay.open .modal-box {
+    transform: translateY(0);
+  }
+
+  .modal-header {
+    padding: var(--s1) var(--s2);
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--c60-alt);
+  }
+
+  .modal-cat {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c10);
+  }
+
+  .modal-close {
+    width: 32px; height: 32px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--c60);
+    cursor: pointer;
+    font-size: 1rem;
+    color: var(--c30-muted);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+  }
+
+  .modal-close:hover {
+    background: var(--c30);
+    color: white;
+    border-color: var(--c30);
+  }
+
+  .modal-body {
+    padding: var(--s2);
+  }
+
+  .modal-title {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+    margin-bottom: var(--s1);
+  }
+
+  .modal-meta {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding-bottom: var(--s1);
+    border-bottom: 1px solid var(--border);
+    margin-bottom: var(--s1);
+  }
+
+  .modal-author {
+    font-size: 0.85rem;
+    font-weight: 600;
+  }
+
+  .modal-date, .modal-read {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    color: var(--c30-muted);
+    letter-spacing: 0.08em;
+  }
+
+  .modal-read {
+    color: var(--c10);
+    background: var(--c10-pale);
+    padding: 3px 8px;
+    border-radius: 2px;
+  }
+
+  .modal-content {
+    font-size: 1rem;
+    line-height: 1.85;
+    color: var(--c30-mid);
+  }
+
+  .modal-content p {
+    margin-bottom: 1.2rem;
+  }
+
+  .modal-content h3 {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--c30);
+    margin: var(--s1) 0 0.8rem;
+  }
+
+  .modal-content blockquote {
+    border-left: 3px solid var(--c10);
+    padding: 12px 20px;
+    margin: var(--s1) 0;
+    background: var(--c60-alt);
+    border-radius: 0 4px 4px 0;
+    font-style: italic;
+    color: var(--c30-mid);
+  }
+
+  .modal-footer {
+    padding: var(--s1) var(--s2);
+    border-top: 1px solid var(--border);
+    background: var(--c60-alt);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .modal-tags {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+  }
+
+  .modal-tag {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    color: var(--c30-muted);
+  }
+
+  .modal-share {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--c10);
+    cursor: pointer;
+    transition: opacity 0.2s;
+  }
+
+  .modal-share:hover { opacity: 0.7; }
+
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     .wrapper { padding: 0 20px; }
@@ -1154,6 +1337,32 @@
   </div>
 </div>
 
+<!-- ARTICLE MODAL -->
+<div class="modal-overlay" id="modalOverlay">
+  <div class="modal-box" id="modalBox">
+    <div class="modal-header">
+      <span class="modal-cat" id="modalCat"></span>
+      <button class="modal-close" id="modalClose">✕</button>
+    </div>
+    <div class="modal-body">
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-meta">
+        <div class="avatar" id="modalAvatar"></div>
+        <span class="modal-author" id="modalAuthor"></span>
+        <span class="meta-sep">·</span>
+        <span class="modal-date" id="modalDate"></span>
+        <span class="meta-sep">·</span>
+        <span class="modal-read" id="modalRead"></span>
+      </div>
+      <div class="modal-content" id="modalContent"></div>
+    </div>
+    <div class="modal-footer">
+      <div class="modal-tags" id="modalTags"></div>
+      <span class="modal-share">↗ Bagikan</span>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <footer>
   <div class="wrapper">
@@ -1217,6 +1426,245 @@
       document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
       item.classList.add('active');
     });
+  });
+
+  // ===== ARTICLE DATA =====
+  const articles = [
+    {
+      id: 'golden-ratio',
+      cat: 'Desain',
+      title: 'Golden Ratio dalam Desain Web: Antara Matematika dan Keindahan',
+      author: 'Aditya Eka Saputra',
+      avatar: 'AE',
+      date: '5 April 2026',
+      read: '8 mnt baca',
+      tags: ['Desain', 'Golden Ratio', 'UI/UX'],
+      content: `
+        <p>Pernahkah kamu merasa suatu website terasa "enak" dipandang tanpa tahu alasannya? Kemungkinan besar, desainernya menggunakan prinsip golden ratio — sebuah formula matematis yang sudah ada sejak ribuan tahun lalu.</p>
+        <h3>Apa Itu Golden Ratio?</h3>
+        <p>Golden ratio, atau rasio emas, adalah perbandingan antara dua angka di mana perbandingan angka yang lebih besar terhadap yang lebih kecil sama dengan perbandingan jumlah keduanya terhadap yang lebih besar. Nilainya kira-kira 1,618 dan dilambangkan dengan huruf Yunani φ (phi).</p>
+        <blockquote>"Keindahan sejati bukan sesuatu yang kebetulan — ia memiliki struktur matematis yang bisa dipelajari dan diterapkan." — Le Corbusier</blockquote>
+        <h3>Penerapan dalam Desain Web</h3>
+        <p>Dalam desain web modern, golden ratio bisa diterapkan dalam berbagai aspek. Pertama adalah pembagian layout halaman — kolom utama konten biasanya mengambil 61,8% dari lebar total, sementara sidebar mengambil 38,2% sisanya. Proporsi ini secara alami terasa seimbang di mata pembaca.</p>
+        <p>Kedua adalah skala tipografi. Ukuran font dari body text ke heading bisa mengikuti deret golden ratio: jika body text berukuran 16px, maka subheading bisa 26px (16 × 1,618), dan heading utama bisa 42px (26 × 1,618).</p>
+        <h3>Mengapa Otak Manusia Menyukainya?</h3>
+        <p>Penelitian neurosains menunjukkan bahwa otak manusia memproses proporsi golden ratio lebih cepat dan efisien dibanding proporsi lainnya. Ini karena proporsi ini juga banyak ditemukan di alam — dari cangkang nautilus, susunan biji bunga matahari, hingga spiral galaksi.</p>
+        <p>Jadi saat kamu menerapkan golden ratio dalam desain web, kamu sebenarnya sedang "berbicara" dalam bahasa yang sudah dikenal otak manusia secara instinktif. Hasilnya? Tampilan yang terasa natural, harmonis, dan menyenangkan.</p>
+      `
+    },
+    {
+      id: 'css-grid',
+      cat: 'Teknologi',
+      title: 'CSS Grid vs Flexbox: Kapan Harus Pakai yang Mana?',
+      author: 'Muhammad Ramdani',
+      avatar: 'MR',
+      date: '4 April 2026',
+      read: '6 mnt baca',
+      tags: ['CSS', 'Frontend', 'Layout'],
+      content: `
+        <p>Dua fitur CSS modern yang paling sering membingungkan developer pemula adalah Flexbox dan CSS Grid. Keduanya digunakan untuk mengatur layout, tapi memiliki kekuatan dan kasus penggunaan yang berbeda.</p>
+        <h3>Flexbox: Satu Dimensi</h3>
+        <p>Flexbox (Flexible Box Layout) dirancang untuk mengatur elemen dalam satu dimensi — baik baris (row) maupun kolom (column). Ia sangat handal untuk navigasi, tombol, card yang sejajar, dan komponen kecil yang butuh alignment fleksibel.</p>
+        <blockquote>Gunakan Flexbox ketika kamu mengatur elemen dalam satu arah — horizontal atau vertikal saja.</blockquote>
+        <h3>CSS Grid: Dua Dimensi</h3>
+        <p>CSS Grid dirancang untuk layout dua dimensi — baris DAN kolom sekaligus. Ia sempurna untuk layout halaman utama, galeri foto, atau komponen yang butuh kontrol penuh atas posisi baris dan kolom secara bersamaan.</p>
+        <h3>Kapan Pakai yang Mana?</h3>
+        <p>Pakai <strong>Flexbox</strong> untuk: navigasi bar, tombol dalam satu baris, card sederhana, centering elemen, dan komponen UI kecil. Pakai <strong>CSS Grid</strong> untuk: layout halaman utama, grid artikel/foto, dashboard, dan layout yang butuh kontrol baris-kolom secara bersamaan.</p>
+        <p>Kabar baiknya — keduanya bisa dikombinasikan! Grid untuk layout besar, Flexbox untuk detail komponen di dalamnya. Itulah cara kerja website modern yang sesungguhnya.</p>
+      `
+    },
+    {
+      id: 'psikologi-warna',
+      cat: 'Desain',
+      title: 'Psikologi Warna dalam UI: Lebih dari Sekadar Estetika',
+      author: 'Valdinata Alfauzan',
+      avatar: 'VA',
+      date: '3 April 2026',
+      read: '7 mnt baca',
+      tags: ['Desain', 'Warna', 'Psikologi'],
+      content: `
+        <p>Warna bukan hanya soal tampilan indah. Setiap warna membawa muatan psikologis yang mempengaruhi perasaan, kepercayaan, dan keputusan pengguna. Memahami psikologi warna adalah senjata rahasia desainer UI yang baik.</p>
+        <h3>Bagaimana Warna Mempengaruhi Perilaku</h3>
+        <p>Penelitian menunjukkan bahwa 90% keputusan pembelian online dipengaruhi oleh warna. Bukan karena warnanya "bagus", tapi karena warna menciptakan asosiasi emosional yang kuat di benak pengguna.</p>
+        <blockquote>"Warna adalah kekuatan yang langsung mempengaruhi jiwa manusia." — Wassily Kandinsky</blockquote>
+        <h3>Makna Warna dalam UI</h3>
+        <p><strong>Biru</strong> — kepercayaan, profesionalisme, ketenangan. Itulah mengapa Facebook, Twitter, LinkedIn, dan banyak bank menggunakan biru. <strong>Merah</strong> — urgensi, energi, bahaya. Digunakan untuk tombol "Hapus", notifikasi error, atau diskon flash sale.</p>
+        <p><strong>Hijau</strong> — sukses, kesehatan, konfirmasi. Tombol "Submit" atau "Berhasil" hampir selalu hijau. <strong>Kuning/Oranye</strong> — optimisme, kreativitas, kehangatan. Cocok untuk call-to-action yang ingin terasa ramah dan antusias.</p>
+        <h3>Aturan 60:30:10</h3>
+        <p>Aturan klasik dalam desain warna adalah 60:30:10 — 60% warna dominan (biasanya netral), 30% warna sekunder, dan 10% warna aksen. Blog ini sendiri menggunakan aturan ini: 60% putih, 30% hitam, 10% biru cobalt.</p>
+      `
+    },
+    {
+      id: 'algoritma',
+      cat: 'Sains',
+      title: 'Algoritma di Balik Rekomendasi Konten yang Kita Konsumsi',
+      author: 'Taufik Kurniawan',
+      avatar: 'TK',
+      date: '2 April 2026',
+      read: '9 mnt baca',
+      tags: ['Algoritma', 'AI', 'Media Sosial'],
+      content: `
+        <p>Setiap hari kita menghabiskan berjam-jam mengonsumsi konten di berbagai platform digital. Tapi pernahkah kamu bertanya — siapa yang memutuskan konten apa yang kamu lihat? Jawabannya: algoritma rekomendasi.</p>
+        <h3>Apa Itu Algoritma Rekomendasi?</h3>
+        <p>Algoritma rekomendasi adalah sistem kecerdasan buatan yang menganalisis perilaku pengguna untuk memprediksi konten apa yang paling mungkin akan disukai dan dilihat lebih lama. Semakin lama kamu menatap layar, semakin banyak data yang dikumpulkan.</p>
+        <blockquote>Platform tidak menampilkan konten terbaik — mereka menampilkan konten yang paling membuat kamu tetap di platform.</blockquote>
+        <h3>Teknik di Baliknya</h3>
+        <p><strong>Collaborative Filtering</strong> — "Pengguna yang mirip denganmu juga menyukai ini." Sistem membandingkan profilmu dengan jutaan pengguna lain untuk menemukan pola kesamaan. <strong>Content-Based Filtering</strong> — Menganalisis konten itu sendiri (kata kunci, durasi, topik) dan mencocokkannya dengan histori tontonanmu.</p>
+        <p><strong>Deep Learning</strong> — YouTube, TikTok, dan Netflix menggunakan neural network yang sangat kompleks untuk memprediksi probabilitas klik, watch time, dan interaksi dengan akurasi yang terus meningkat setiap hari.</p>
+        <h3>Dampaknya pada Kita</h3>
+        <p>Filter bubble adalah efek di mana algoritma semakin membatasi konten yang kita lihat hanya pada hal-hal yang sudah kita setujui. Ini bisa mempersempit perspektif dan memperkuat bias yang sudah ada. Kesadaran akan cara kerja algoritma adalah langkah pertama untuk menggunakannya secara lebih bijak.</p>
+      `
+    },
+    {
+      id: 'belajar-koding',
+      cat: 'Esai',
+      title: 'Belajar Koding di Era AI: Masih Relevan atau Sudah Usang?',
+      author: 'Lazuardi Ananda',
+      avatar: 'LA',
+      date: '1 April 2026',
+      read: '5 mnt baca',
+      tags: ['AI', 'Pemrograman', 'Karir'],
+      content: `
+        <p>Sejak kemunculan ChatGPT, GitHub Copilot, dan berbagai AI coding assistant lainnya, pertanyaan ini semakin sering muncul: apakah masih worth it belajar koding dari nol di era AI?</p>
+        <h3>Argumen yang Mengatakan "Tidak Perlu"</h3>
+        <p>Dengan AI, siapa pun bisa menghasilkan kode yang berfungsi hanya dengan mendeskripsikan apa yang diinginkan dalam bahasa natural. Prototyping yang dulu butuh berhari-hari kini bisa selesai dalam hitungan jam. Beberapa orang bahkan membangun produk digital tanpa menulis satu baris kode pun.</p>
+        <blockquote>"AI will not replace programmers. But programmers who use AI will replace those who don't." — Anonim</blockquote>
+        <h3>Mengapa Tetap Harus Belajar</h3>
+        <p>AI menghasilkan kode, tapi tidak selalu benar. Tanpa pemahaman dasar pemrograman, kamu tidak akan bisa mengevaluasi apakah kode yang dihasilkan AI itu aman, efisien, atau bahkan berfungsi dengan benar dalam konteks sistemmu.</p>
+        <p>Lebih dari itu, memahami cara berpikir komputasional — memecah masalah, menemukan pola, berpikir logis — adalah keterampilan kognitif yang jauh melampaui sekadar menulis kode. Ini adalah cara berpikir yang berguna di hampir semua bidang.</p>
+        <h3>Kesimpulan</h3>
+        <p>Belajar koding masih sangat relevan — bahkan lebih penting dari sebelumnya. Tapi yang perlu berubah adalah cara belajarnya. Fokus bukan lagi pada menghafal sintaks, tapi pada memahami konsep, arsitektur, dan cara berkolaborasi dengan AI sebagai partner, bukan pengganti.</p>
+      `
+    },
+    {
+      id: 'responsive',
+      cat: 'Teknologi',
+      title: 'Responsive Design: Membuat Web yang Nyaman di Semua Layar',
+      author: 'Muhammad Ramdani',
+      avatar: 'MR',
+      date: '4 April 2026',
+      read: '6 mnt baca',
+      tags: ['CSS', 'Responsive', 'Mobile'],
+      content: `
+        <p>Di dunia di mana pengguna mengakses web dari layar sekecil jam tangan hingga sebesar TV 4K, responsive design bukan lagi fitur tambahan — ia adalah keharusan dasar.</p>
+        <h3>Tiga Pilar Responsive Design</h3>
+        <p>Responsive design berdiri di atas tiga fondasi utama. Pertama adalah <strong>fluid grid</strong> — layout yang menggunakan persentase bukan pixel tetap, sehingga proporsional di layar apapun. Kedua adalah <strong>flexible images</strong> — gambar yang tidak pernah melebihi container-nya dengan CSS sederhana: <code>img { max-width: 100%; }</code>.</p>
+        <p>Ketiga adalah <strong>media queries</strong> — aturan CSS yang diterapkan hanya pada ukuran layar tertentu. Inilah yang memungkinkan layout 3 kolom di desktop menjadi 1 kolom di mobile.</p>
+        <blockquote>Mobile-first bukan sekadar pendekatan teknis — ini adalah cara berpikir yang memaksa kamu untuk memprioritaskan konten yang benar-benar penting.</blockquote>
+        <h3>Pendekatan Mobile-First</h3>
+        <p>Daripada membuat desain desktop lalu "menyesuaikan" ke mobile, pendekatan mobile-first justru memulai dari layar terkecil dulu, kemudian secara progresif menambah fitur dan kompleksitas untuk layar yang lebih besar. Hasilnya lebih bersih, lebih cepat, dan lebih mudah dimaintain.</p>
+      `
+    },
+    {
+      id: 'tipografi',
+      cat: 'Desain',
+      title: 'Tipografi Web: Memilih Font yang Tepat untuk Keterbacaan Optimal',
+      author: 'Valdinata Alfauzan',
+      avatar: 'VA',
+      date: '3 April 2026',
+      read: '5 mnt baca',
+      tags: ['Tipografi', 'Font', 'Desain'],
+      content: `
+        <p>Font adalah salah satu keputusan desain yang paling berdampak, namun paling sering diabaikan. Pilihan font yang tepat bisa meningkatkan keterbacaan, membangun kepercayaan, dan mencerminkan karakter brand.</p>
+        <h3>Serif vs Sans-Serif</h3>
+        <p>Font <strong>serif</strong> (seperti Georgia, Times New Roman) memiliki "kaki" kecil di ujung huruf. Mereka terasa klasik, elegan, dan terpercaya — cocok untuk artikel panjang, media berita, dan brand premium. Font <strong>sans-serif</strong> (seperti Helvetica, Arial) lebih bersih dan modern — ideal untuk UI digital, aplikasi, dan brand teknologi.</p>
+        <blockquote>Tipografi yang baik adalah tipografi yang tidak kamu sadari — ia hanya membuat membaca terasa mudah dan menyenangkan.</blockquote>
+        <h3>Ukuran dan Spasi</h3>
+        <p>Body text ideal untuk web adalah 16-18px dengan line-height 1.5-1.7. Terlalu kecil membuat mata cepat lelah, terlalu besar terasa tidak profesional. Letter-spacing sedikit ditambah pada heading membuat judul terasa lebih berbobot dan mudah dibaca sekilas.</p>
+        <h3>Pairing Font</h3>
+        <p>Kombinasi font yang berhasil biasanya mempertemukan dua kepribadian berbeda: satu font display yang ekspresif untuk heading (biasanya serif), dan satu font clean untuk body text (biasanya sans-serif). Kontras yang tepat menciptakan hierarki visual yang memandu mata pembaca secara alami.</p>
+      `
+    },
+    {
+      id: 'otak-visual',
+      cat: 'Sains',
+      title: 'Bagaimana Otak Memproses Informasi Visual di Layar Digital?',
+      author: 'Taufik Kurniawan',
+      avatar: 'TK',
+      date: '2 April 2026',
+      read: '8 mnt baca',
+      tags: ['Sains', 'Neurosains', 'UX'],
+      content: `
+        <p>Setiap detik, mata manusia menangkap jutaan bit informasi visual. Tapi otak tidak memproses semuanya secara merata — ia memilih, menyaring, dan memprioritaskan berdasarkan pola yang sudah dipelajari sepanjang hidup.</p>
+        <h3>Pola Membaca F dan Z</h3>
+        <p>Penelitian eye-tracking menunjukkan bahwa ketika membaca halaman web, mata manusia cenderung mengikuti pola "F" — membaca baris pertama penuh, kemudian baris kedua lebih pendek, kemudian menscroll ke bawah di sisi kiri saja. Pada halaman dengan visual lebih kaya, mata mengikuti pola "Z".</p>
+        <blockquote>Pengguna tidak membaca halaman web — mereka memindainya. Desain yang baik memanfaatkan pola pemindaian ini.</blockquote>
+        <h3>Prinsip Gestalt dalam UI</h3>
+        <p>Prinsip Gestalt menjelaskan bagaimana otak mengorganisasi visual menjadi kelompok bermakna. <strong>Proximity</strong> — elemen yang berdekatan dianggap berhubungan. <strong>Similarity</strong> — elemen yang mirip dianggap satu grup. <strong>Continuity</strong> — mata mengikuti garis dan kurva secara alami.</p>
+        <p>Desainer UI yang memahami prinsip ini bisa mengarahkan perhatian pengguna ke elemen yang paling penting tanpa perlu tanda panah atau teks instruksi eksplisit.</p>
+      `
+    },
+    {
+      id: 'github-portofolio',
+      cat: 'Esai',
+      title: 'GitHub sebagai Portofolio: Kenapa Developer Harus Aktif Berkontribusi',
+      author: 'Lazuardi Ananda',
+      avatar: 'LA',
+      date: '1 April 2026',
+      read: '6 mnt baca',
+      tags: ['GitHub', 'Karir', 'Developer'],
+      content: `
+        <p>Di industri teknologi, portofolio bukan lagi sekumpulan screenshot di PDF — ia adalah kode nyata yang bisa dilihat, dijalankan, dan dievaluasi oleh siapa saja. GitHub adalah panggung tersebut.</p>
+        <h3>GitHub Sebagai CV Hidup</h3>
+        <p>Contribution graph di GitHub — kotak-kotak hijau yang menunjukkan aktivitas harianmu — adalah sinyal pertama yang dilihat rekruter. Bukan karena mereka memuja konsistensi buta, tapi karena itu menunjukkan bahwa kamu aktif belajar dan membangun sesuatu.</p>
+        <blockquote>Kode yang kamu tulis hari ini adalah bukti nyata kemampuanmu yang tidak bisa dipalsukan oleh CV manapun.</blockquote>
+        <h3>Apa yang Harus Diisi?</h3>
+        <p>Mulai dari proyek kecil: kalkulator, to-do app, atau website sederhana. Yang penting adalah proses belajar dan iterasinya terlihat. Tambahkan README yang menjelaskan apa proyeknya, teknologi yang digunakan, dan cara menjalankannya.</p>
+        <p>Berkontribusi ke open source, meski hanya memperbaiki typo di dokumentasi, juga menunjukkan bahwa kamu bisa berkolaborasi dalam ekosistem pengembangan software yang nyata.</p>
+        <h3>Mulai Hari Ini</h3>
+        <p>Tidak perlu menunggu punya proyek "keren". Upload apa yang sudah kamu buat, meski terasa sederhana. Setiap commit adalah bukti nyata perjalanan belajarmu — dan itu jauh lebih berharga dari sertifikat manapun.</p>
+      `
+    }
+  ];
+
+  // ===== MODAL LOGIC =====
+  const overlay = document.getElementById('modalOverlay');
+  const closeBtn = document.getElementById('modalClose');
+
+  function openArticle(id) {
+    const a = articles.find(x => x.id === id);
+    if (!a) return;
+    document.getElementById('modalCat').textContent = a.cat;
+    document.getElementById('modalTitle').textContent = a.title;
+    document.getElementById('modalAvatar').textContent = a.avatar;
+    document.getElementById('modalAuthor').textContent = a.author;
+    document.getElementById('modalDate').textContent = a.date;
+    document.getElementById('modalRead').textContent = a.read;
+    document.getElementById('modalContent').innerHTML = a.content;
+    document.getElementById('modalTags').innerHTML = a.tags.map(t => `<span class="modal-tag">${t}</span>`).join('');
+    overlay.classList.add('open');
+    document.body.style.overflow = 'hidden';
+    overlay.scrollTop = 0;
+  }
+
+  function closeModal() {
+    overlay.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  closeBtn.addEventListener('click', closeModal);
+  overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // Attach click to hero title
+  document.querySelector('.hero-title').addEventListener('click', () => openArticle('golden-ratio'));
+
+  // Attach click to sidebar articles
+  const sideIds = ['css-grid', 'psikologi-warna', 'algoritma', 'belajar-koding'];
+  document.querySelectorAll('.side-article').forEach((el, i) => {
+    el.addEventListener('click', () => openArticle(sideIds[i]));
+  });
+
+  // Attach click to article cards (grid)
+  const cardIds = ['responsive', 'tipografi', 'otak-visual', 'github-portofolio'];
+  document.querySelectorAll('.article-card').forEach((el, i) => {
+    el.addEventListener('click', () => openArticle(cardIds[i]));
+  });
+
+  // Attach click to list articles
+  const listIds = ['golden-ratio', 'responsive'];
+  document.querySelectorAll('.article-list-item').forEach((el, i) => {
+    el.addEventListener('click', () => openArticle(listIds[i]));
   });
 </script>
 
