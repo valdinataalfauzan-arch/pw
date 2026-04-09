@@ -3,37 +3,34 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Ruang Baca — Blog & Artikel</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Lora:ital,wght@0,400;0,500;1,400&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<title>Blog Kelompok 5</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 
   /* =====================
      COLOR RULE 60:30:10
-     60% → Warm Cream / Ivory (dominan, bg terang)
-     30% → Deep Ink / Charcoal (teks & surface)
-     10% → Burnt Sienna / Terracotta (aksen)
+     60% → Pure White / Off-white (dominan)
+     30% → Soft Black / Charcoal (teks & elemen)
+     10% → Cobalt Blue (aksen)
   ===================== */
   :root {
-    --c60: #f5f0e8;         /* warm cream — 60% dominan */
-    --c60-alt: #ede7d9;     /* sedikit lebih gelap */
-    --c30: #1c1a16;         /* deep ink — 30% */
-    --c30-mid: #4a4540;     /* medium */
-    --c30-muted: #8a8278;   /* muted text */
-    --c10: #b85c38;         /* burnt sienna — 10% aksen */
-    --c10-light: #d4795a;
-    --c10-pale: rgba(184,92,56,0.08);
-    --surface: #ede7d9;
-    --border: rgba(28,26,22,0.1);
+    --c60: #ffffff;
+    --c60-alt: #f8f8f6;
+    --c60-soft: #f2f2ef;
+    --c30: #111110;
+    --c30-mid: #3a3a38;
+    --c30-muted: #9a9a96;
+    --c10: #2563eb;
+    --c10-light: #3b82f6;
+    --c10-pale: rgba(37,99,235,0.07);
+    --border: #e8e8e4;
 
-    /* Golden Ratio spacing φ = 1.618 */
-    --phi: 1.618;
-    --u: 1rem;
+    /* Golden Ratio φ = 1.618 */
     --s1: 1.618rem;
     --s2: 2.618rem;
     --s3: 4.236rem;
     --s4: 6.854rem;
 
-    /* Golden Ratio columns */
     --col-wide: 61.8%;
     --col-narrow: 38.2%;
   }
@@ -42,409 +39,411 @@
   html { scroll-behavior: smooth; }
 
   body {
-    background-color: var(--c60);
+    background: var(--c60);
     color: var(--c30);
-    font-family: 'Lora', serif;
-    font-size: 17px;
-    line-height: var(--phi);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 16px;
+    line-height: 1.618;
     overflow-x: hidden;
   }
 
-  /* ===== NOISE TEXTURE ===== */
-  body::before {
-    content: '';
+  /* ===== PROGRESS BAR ===== */
+  .progress {
     position: fixed;
-    inset: 0;
-    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
-    pointer-events: none;
-    z-index: 999;
-    opacity: 0.4;
+    top: 0; left: 0;
+    height: 2px;
+    width: 0%;
+    background: var(--c10);
+    z-index: 1000;
+    transition: width 0.1s linear;
   }
 
   /* ===== TOPBAR ===== */
   .topbar {
     background: var(--c30);
-    color: var(--c60);
+    color: rgba(255,255,255,0.6);
     text-align: center;
-    padding: 8px;
+    padding: 9px;
     font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
+    font-size: 0.62rem;
+    letter-spacing: 0.28em;
     text-transform: uppercase;
   }
 
-  .topbar span { color: var(--c10-light); }
+  .topbar b { color: #fff; }
 
-  /* ===== HEADER / NAV ===== */
+  /* ===== HEADER ===== */
   header {
-    border-bottom: 2px solid var(--c30);
+    border-bottom: 1px solid var(--border);
     background: var(--c60);
     position: sticky;
     top: 0;
     z-index: 50;
+    box-shadow: 0 1px 0 var(--border);
   }
 
-  .header-top {
-    display: flex;
-    justify-content: space-between;
+  .header-inner {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px 40px;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
     align-items: center;
-    padding: var(--u) var(--s2);
-    border-bottom: 1px solid var(--border);
+    gap: 20px;
   }
 
-  .header-date {
+  .header-left {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .header-left span {
     font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.6rem;
     letter-spacing: 0.2em;
-    color: var(--c30-muted);
     text-transform: uppercase;
+    color: var(--c30-muted);
+  }
+
+  .header-left .dot {
+    width: 6px; height: 6px;
+    background: var(--c10);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
   }
 
   .site-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.8rem;
+    font-size: 1.7rem;
     font-weight: 700;
-    letter-spacing: -0.02em;
     text-align: center;
+    letter-spacing: -0.02em;
   }
 
-  .site-title span { color: var(--c10); font-style: italic; }
+  .site-title span {
+    color: var(--c10);
+  }
 
-  .header-action {
+  .header-right {
     display: flex;
+    justify-content: flex-end;
     align-items: center;
-    gap: var(--u);
+    gap: 12px;
   }
 
-  .btn-subscribe {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.2em;
-    text-transform: uppercase;
-    padding: 8px 18px;
-    background: var(--c10);
-    color: white;
-    border: none;
-    cursor: pointer;
-    transition: background 0.3s;
+  .search-wrap {
+    position: relative;
   }
 
-  .btn-subscribe:hover { background: var(--c30); }
-
-  .search-box {
+  .search-wrap input {
     font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    padding: 8px 14px;
+    font-size: 0.68rem;
+    padding: 8px 14px 8px 34px;
     border: 1px solid var(--border);
-    background: transparent;
+    background: var(--c60-alt);
     color: var(--c30);
     outline: none;
+    border-radius: 4px;
     width: 160px;
-    transition: border-color 0.3s;
+    transition: border-color 0.25s, width 0.3s;
   }
 
-  .search-box:focus { border-color: var(--c10); }
-  .search-box::placeholder { color: var(--c30-muted); }
+  .search-wrap input:focus {
+    border-color: var(--c10);
+    width: 200px;
+  }
 
-  /* ===== NAV CATEGORIES ===== */
+  .search-wrap input::placeholder { color: var(--c30-muted); }
+
+  .search-icon {
+    position: absolute;
+    left: 10px; top: 50%;
+    transform: translateY(-50%);
+    color: var(--c30-muted);
+    font-size: 0.8rem;
+  }
+
+  /* ===== NAV ===== */
   nav {
+    border-top: 1px solid var(--border);
     display: flex;
     justify-content: center;
     gap: 0;
+    max-width: 100%;
     overflow-x: auto;
   }
 
   .nav-item {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    padding: 12px 20px;
+    padding: 12px 22px;
     color: var(--c30-muted);
     text-decoration: none;
     border-right: 1px solid var(--border);
-    transition: all 0.25s;
+    transition: all 0.2s;
     white-space: nowrap;
   }
 
   .nav-item:first-child { border-left: 1px solid var(--border); }
-  .nav-item:hover, .nav-item.active { color: var(--c60); background: var(--c30); }
-  .nav-item.active { color: var(--c10-light); background: var(--c30); }
+  .nav-item:hover { color: var(--c30); background: var(--c60-alt); }
+  .nav-item.active { color: var(--c10); border-bottom: 2px solid var(--c10); }
+
+  /* ===== WRAPPER ===== */
+  .wrapper {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 40px;
+  }
 
   /* ===== HERO FEATURED ===== */
-  .hero-featured {
+  .hero {
     display: grid;
     grid-template-columns: var(--col-wide) var(--col-narrow);
+    gap: 0;
     border-bottom: 1px solid var(--border);
+    margin-top: 0;
   }
 
-  .featured-main {
-    padding: var(--s2);
+  .hero-main {
+    padding: var(--s2) var(--s2) var(--s2) 0;
     border-right: 1px solid var(--border);
-    position: relative;
-    overflow: hidden;
   }
 
-  .featured-main::before {
-    content: '';
-    position: absolute;
-    top: 0; left: 0;
-    width: 4px;
-    height: 100%;
-    background: var(--c10);
-  }
-
-  .featured-label {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--c10);
-    margin-bottom: var(--u);
-    display: flex;
+  .hero-badge {
+    display: inline-flex;
     align-items: center;
-    gap: 8px;
-  }
-
-  .featured-label::after {
-    content: '';
-    flex: 1;
-    height: 1px;
-    background: rgba(184,92,56,0.3);
-  }
-
-  .featured-cat {
-    display: inline-block;
+    gap: 6px;
+    background: var(--c10-pale);
+    color: var(--c10);
     font-family: 'DM Mono', monospace;
     font-size: 0.6rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
-    background: var(--c10);
-    color: white;
-    padding: 4px 10px;
+    padding: 5px 12px;
+    border-radius: 2px;
     margin-bottom: 16px;
   }
 
-  .featured-title {
+  .hero-badge::before {
+    content: '';
+    width: 5px; height: 5px;
+    background: var(--c10);
+    border-radius: 50%;
+  }
+
+  .hero-title {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(2rem, 4vw, 3.2rem);
+    font-size: clamp(1.8rem, 3.5vw, 2.8rem);
     font-weight: 700;
-    line-height: 1.15;
-    letter-spacing: -0.02em;
-    margin-bottom: var(--u);
-    transition: color 0.3s;
+    line-height: 1.2;
+    letter-spacing: -0.025em;
+    margin-bottom: 16px;
+    cursor: pointer;
+    transition: color 0.25s;
   }
 
-  .featured-title:hover { color: var(--c10); cursor: pointer; }
+  .hero-title:hover { color: var(--c10); }
 
-  .featured-title em { font-style: italic; color: var(--c10); }
-
-  .featured-excerpt {
-    font-size: 1.05rem;
+  .hero-excerpt {
+    font-size: 1rem;
     color: var(--c30-mid);
-    line-height: var(--phi);
-    max-width: 520px;
+    line-height: 1.75;
     margin-bottom: var(--s1);
+    max-width: 500px;
   }
 
-  .article-meta {
+  .hero-meta {
     display: flex;
     align-items: center;
-    gap: var(--u);
+    gap: 10px;
     flex-wrap: wrap;
   }
 
-  .meta-author {
+  .avatar {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: var(--c10-pale);
+    border: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: center;
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
-    letter-spacing: 0.1em;
-    color: var(--c30);
+    font-size: 0.6rem;
     font-weight: 400;
+    color: var(--c10);
   }
 
-  .meta-dot { color: var(--c30-muted); }
+  .meta-author {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--c30);
+  }
 
-  .meta-date {
+  .meta-sep { color: var(--c30-muted); font-size: 0.75rem; }
+
+  .meta-date, .meta-read {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.62rem;
     color: var(--c30-muted);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
 
   .meta-read {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
     color: var(--c10);
-    letter-spacing: 0.1em;
-    border: 1px solid rgba(184,92,56,0.3);
+    background: var(--c10-pale);
     padding: 3px 8px;
+    border-radius: 2px;
   }
 
-  /* Featured sidebar */
-  .featured-sidebar {
+  /* Hero sidebar */
+  .hero-sidebar {
     display: flex;
     flex-direction: column;
   }
 
-  .sidebar-post {
-    padding: var(--s1);
+  .side-article {
+    padding: 20px var(--s1);
     border-bottom: 1px solid var(--border);
-    display: grid;
-    grid-template-columns: 1fr 2.618fr;
-    gap: var(--u);
-    align-items: start;
-    transition: background 0.25s;
     cursor: pointer;
+    transition: background 0.2s;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 14px;
+    align-items: start;
   }
 
-  .sidebar-post:last-child { border-bottom: none; }
-  .sidebar-post:hover { background: var(--c60-alt); }
+  .side-article:last-child { border-bottom: none; }
+  .side-article:hover { background: var(--c60-alt); }
 
-  .sidebar-num {
+  .side-num {
     font-family: 'Playfair Display', serif;
-    font-size: 2rem;
+    font-size: 1.6rem;
     font-weight: 700;
-    color: rgba(28,26,22,0.1);
+    color: var(--border);
     line-height: 1;
-    padding-top: 4px;
+    min-width: 28px;
   }
 
-  .sidebar-cat {
+  .side-cat {
     font-family: 'DM Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.2em;
+    font-size: 0.57rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--c10);
-    margin-bottom: 6px;
+    margin-bottom: 5px;
   }
 
-  .sidebar-title {
+  .side-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1rem;
+    font-size: 0.95rem;
     font-weight: 600;
-    line-height: 1.3;
-    margin-bottom: 6px;
+    line-height: 1.35;
+    margin-bottom: 5px;
+    transition: color 0.2s;
   }
 
-  .sidebar-meta {
+  .side-article:hover .side-title { color: var(--c10); }
+
+  .side-meta {
     font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     color: var(--c30-muted);
-    letter-spacing: 0.1em;
+    letter-spacing: 0.08em;
   }
 
-  /* ===== DIVIDER ===== */
-  .section-divider {
+  /* ===== SECTION LABEL ===== */
+  .sec-label {
     display: flex;
     align-items: center;
     gap: var(--s1);
-    padding: var(--s1) var(--s2);
+    padding: var(--s1) 0;
     border-bottom: 1px solid var(--border);
+    margin-bottom: var(--s1);
   }
 
-  .divider-title {
+  .sec-label-text {
     font-family: 'DM Mono', monospace;
-    font-size: 0.68rem;
+    font-size: 0.65rem;
     letter-spacing: 0.3em;
     text-transform: uppercase;
     color: var(--c30);
     white-space: nowrap;
   }
 
-  .divider-line {
-    flex: 1;
-    height: 1px;
-    background: var(--border);
-  }
+  .sec-line { flex: 1; height: 1px; background: var(--border); }
 
-  .divider-link {
+  .sec-link {
     font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.2em;
+    font-size: 0.6rem;
+    letter-spacing: 0.18em;
     text-transform: uppercase;
     color: var(--c10);
     text-decoration: none;
     white-space: nowrap;
+    transition: opacity 0.2s;
   }
 
-  /* ===== MAIN LAYOUT ===== */
-  .main-layout {
+  .sec-link:hover { opacity: 0.7; }
+
+  /* ===== MAIN CONTENT LAYOUT ===== */
+  .content-layout {
     display: grid;
     grid-template-columns: var(--col-wide) var(--col-narrow);
-    border-bottom: 2px solid var(--c30);
+    gap: var(--s2);
+    padding: var(--s2) 0;
   }
 
   /* ===== ARTICLE GRID ===== */
-  .articles-area {
-    border-right: 1px solid var(--border);
-    padding: var(--s2);
-  }
-
-  .articles-grid {
+  .article-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: var(--s2);
+    gap: var(--s1);
     margin-bottom: var(--s2);
   }
 
   .article-card {
     cursor: pointer;
-    group: true;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    background: var(--c60);
   }
 
-  .card-image {
+  .article-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.08);
+    transform: translateY(-3px);
+  }
+
+  .card-thumb {
     width: 100%;
     aspect-ratio: 16/9;
-    background: var(--c60-alt);
-    margin-bottom: var(--u);
-    overflow: hidden;
-    position: relative;
-  }
-
-  /* Unique decorative bg per card */
-  .card-img-1 {
-    background: linear-gradient(135deg, #e8d5c0 0%, #c9b49a 100%);
-  }
-  .card-img-2 {
-    background: linear-gradient(135deg, #c0d5d8 0%, #9ab4c9 100%);
-  }
-  .card-img-3 {
-    background: linear-gradient(135deg, #d5c0e8 0%, #b49ac9 100%);
-  }
-  .card-img-4 {
-    background: linear-gradient(135deg, #c0e8c8 0%, #9ac9a4 100%);
-  }
-
-  .card-image::after {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: var(--c30);
-    opacity: 0;
-    transition: opacity 0.4s;
-  }
-
-  .article-card:hover .card-image::after { opacity: 0.08; }
-
-  .card-image-inner {
-    width: 100%;
-    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
+    font-size: 2.2rem;
+    position: relative;
+    overflow: hidden;
   }
 
-  .article-card:hover .card-image-inner { transform: scale(1.04); }
+  .ct-1 { background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%); }
+  .ct-2 { background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); }
+  .ct-3 { background: linear-gradient(135deg, #d1fae5 0%, #a7f3d0 100%); }
+  .ct-4 { background: linear-gradient(135deg, #fce7f3 0%, #fbcfe8 100%); }
 
-  .card-icon {
-    font-size: 2.5rem;
-    opacity: 0.3;
-  }
+  .card-body { padding: 16px; }
 
   .card-cat {
     font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
+    font-size: 0.58rem;
     letter-spacing: 0.2em;
     text-transform: uppercase;
     color: var(--c10);
@@ -453,172 +452,270 @@
 
   .card-title {
     font-family: 'Playfair Display', serif;
-    font-size: 1.15rem;
+    font-size: 1.05rem;
     font-weight: 600;
-    line-height: 1.3;
+    line-height: 1.35;
     margin-bottom: 8px;
-    transition: color 0.25s;
+    transition: color 0.2s;
   }
 
   .article-card:hover .card-title { color: var(--c10); }
 
   .card-excerpt {
-    font-size: 0.88rem;
+    font-size: 0.83rem;
     color: var(--c30-muted);
     line-height: 1.65;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
     display: -webkit-box;
     -webkit-line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
   }
 
-  .card-meta {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.6rem;
-    color: var(--c30-muted);
-    letter-spacing: 0.1em;
+  .card-footer {
     display: flex;
-    gap: 10px;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: 12px;
+    border-top: 1px solid var(--border);
   }
 
-  /* ===== HORIZONTAL ARTICLE ===== */
-  .article-horizontal {
+  .card-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .card-author-name {
+    font-size: 0.78rem;
+    font-weight: 500;
+    color: var(--c30-mid);
+  }
+
+  .card-read {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--c30-muted);
+    letter-spacing: 0.08em;
+  }
+
+  /* ===== LIST ARTICLES ===== */
+  .article-list-item {
     display: grid;
     grid-template-columns: var(--col-narrow) 1fr;
     gap: var(--s1);
     padding: var(--s1) 0;
-    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
     cursor: pointer;
+    transition: opacity 0.2s;
   }
 
-  .article-horizontal:hover .card-title { color: var(--c10); }
+  .article-list-item:last-child { border-bottom: none; }
+  .article-list-item:hover { opacity: 0.75; }
 
-  .horiz-image {
+  .list-thumb {
     aspect-ratio: 4/3;
-    background: var(--c60-alt);
+    border-radius: 4px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.8rem;
     overflow: hidden;
-    position: relative;
   }
 
-  .horiz-img-1 { background: linear-gradient(135deg, #e8c0c0 0%, #c99a9a 100%); }
-  .horiz-img-2 { background: linear-gradient(135deg, #e8e0c0 0%, #c9c09a 100%); }
+  .lt-1 { background: linear-gradient(135deg, #ede9fe 0%, #ddd6fe 100%); }
+  .lt-2 { background: linear-gradient(135deg, #ffedd5 0%, #fed7aa 100%); }
 
-  .horiz-image .card-image-inner {
-    height: 100%;
-  }
-
-  .article-horizontal:hover .horiz-image .card-image-inner { transform: scale(1.04); }
+  .article-list-item:hover .card-title { color: var(--c10); }
 
   /* ===== SIDEBAR ===== */
-  .sidebar {
-    padding: var(--s1) var(--s1) var(--s2);
-  }
+  .sidebar { }
 
-  /* Sidebar Newsletter */
-  .sidebar-newsletter {
-    background: var(--c30);
-    color: var(--c60);
-    padding: var(--s1);
+  /* Members card */
+  .members-card {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
     margin-bottom: var(--s1);
   }
 
-  .newsletter-label {
+  .members-head {
+    background: var(--c30);
+    color: white;
+    padding: 14px 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .members-head-title {
     font-family: 'DM Mono', monospace;
     font-size: 0.62rem;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.25em;
     text-transform: uppercase;
-    color: var(--c10-light);
-    margin-bottom: 10px;
   }
 
-  .newsletter-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.4rem;
-    font-weight: 700;
-    line-height: 1.25;
-    margin-bottom: 10px;
-  }
-
-  .newsletter-title em { color: var(--c10-light); font-style: italic; }
-
-  .newsletter-desc {
-    font-size: 0.85rem;
-    color: rgba(245,240,232,0.65);
-    line-height: 1.65;
-    margin-bottom: var(--u);
-  }
-
-  .newsletter-input {
-    width: 100%;
-    padding: 10px 12px;
-    background: rgba(245,240,232,0.1);
-    border: 1px solid rgba(245,240,232,0.2);
-    color: var(--c60);
+  .members-count {
     font-family: 'DM Mono', monospace;
-    font-size: 0.7rem;
-    letter-spacing: 0.1em;
-    outline: none;
-    margin-bottom: 10px;
-    transition: border-color 0.3s;
+    font-size: 0.58rem;
+    color: rgba(255,255,255,0.4);
   }
 
-  .newsletter-input:focus { border-color: var(--c10-light); }
-  .newsletter-input::placeholder { color: rgba(245,240,232,0.35); }
+  .member-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 14px 18px;
+    border-bottom: 1px solid var(--border);
+    transition: background 0.2s;
+    cursor: pointer;
+  }
 
-  .newsletter-btn {
+  .member-item:last-child { border-bottom: none; }
+  .member-item:hover { background: var(--c60-alt); }
+
+  .member-avatar {
+    width: 36px; height: 36px;
+    border-radius: 50%;
+    background: var(--c10-pale);
+    border: 1px solid rgba(37,99,235,0.15);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    font-weight: 400;
+    color: var(--c10);
+    flex-shrink: 0;
+  }
+
+  .member-info { flex: 1; }
+
+  .member-name {
+    font-size: 0.88rem;
+    font-weight: 600;
+    color: var(--c30);
+    margin-bottom: 2px;
+  }
+
+  .member-role {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.1em;
+    color: var(--c30-muted);
+    text-transform: uppercase;
+  }
+
+  .member-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--border);
+    font-weight: 300;
+  }
+
+  /* Newsletter sidebar */
+  .newsletter-box {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: var(--s1);
+    margin-bottom: var(--s1);
+    background: var(--c60-alt);
+  }
+
+  .nl-label {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--c10);
+    margin-bottom: 10px;
+  }
+
+  .nl-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    line-height: 1.3;
+    margin-bottom: 8px;
+  }
+
+  .nl-desc {
+    font-size: 0.82rem;
+    color: var(--c30-muted);
+    line-height: 1.65;
+    margin-bottom: 14px;
+  }
+
+  .nl-input {
     width: 100%;
-    padding: 10px;
+    padding: 9px 12px;
+    border: 1px solid var(--border);
+    background: var(--c60);
+    color: var(--c30);
+    font-family: 'DM Mono', monospace;
+    font-size: 0.68rem;
+    outline: none;
+    border-radius: 3px;
+    margin-bottom: 8px;
+    transition: border-color 0.25s;
+  }
+
+  .nl-input:focus { border-color: var(--c10); }
+  .nl-input::placeholder { color: var(--c30-muted); }
+
+  .nl-btn {
+    width: 100%;
+    padding: 9px;
     background: var(--c10);
     color: white;
     border: none;
     font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.25em;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
     text-transform: uppercase;
     cursor: pointer;
-    transition: background 0.3s;
+    border-radius: 3px;
+    transition: background 0.25s;
   }
 
-  .newsletter-btn:hover { background: var(--c10-light); }
+  .nl-btn:hover { background: var(--c30); }
 
-  /* Sidebar Tags */
-  .sidebar-section {
-    margin-bottom: var(--s1);
-    padding-bottom: var(--s1);
+  /* Tags */
+  .tags-box {
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: var(--s1);
+  }
+
+  .tags-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: var(--c30);
+    margin-bottom: var(--u, 1rem);
+    padding-bottom: 10px;
     border-bottom: 1px solid var(--border);
   }
 
-  .sidebar-section:last-child { border-bottom: none; }
-
-  .sidebar-heading {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
-    letter-spacing: 0.3em;
-    text-transform: uppercase;
-    color: var(--c30);
-    margin-bottom: var(--u);
-    padding-bottom: 8px;
-    border-bottom: 2px solid var(--c30);
-    display: inline-block;
-  }
-
-  .tags-cloud {
+  .tags-wrap {
     display: flex;
     flex-wrap: wrap;
-    gap: 8px;
+    gap: 7px;
   }
 
   .tag {
     font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    letter-spacing: 0.12em;
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
     text-transform: uppercase;
-    padding: 5px 12px;
+    padding: 5px 11px;
     border: 1px solid var(--border);
+    border-radius: 3px;
     color: var(--c30-mid);
     cursor: pointer;
-    transition: all 0.25s;
+    transition: all 0.2s;
+    background: var(--c60);
   }
 
   .tag:hover {
@@ -627,139 +724,96 @@
     background: var(--c10-pale);
   }
 
-  /* Sidebar Popular */
-  .popular-item {
-    display: grid;
-    grid-template-columns: auto 1fr;
-    gap: 12px;
-    padding: 12px 0;
+  /* ===== BANNER QUOTE ===== */
+  .banner {
+    background: var(--c60-soft);
+    border-top: 1px solid var(--border);
     border-bottom: 1px solid var(--border);
-    cursor: pointer;
-    align-items: start;
-  }
-
-  .popular-item:last-child { border-bottom: none; }
-  .popular-item:hover .popular-title { color: var(--c10); }
-
-  .popular-rank {
-    font-family: 'Playfair Display', serif;
-    font-size: 1.6rem;
-    font-weight: 700;
-    color: rgba(28,26,22,0.1);
-    line-height: 1;
-    min-width: 28px;
-  }
-
-  .popular-cat {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.58rem;
-    letter-spacing: 0.18em;
-    text-transform: uppercase;
-    color: var(--c10);
-    margin-bottom: 4px;
-  }
-
-  .popular-title {
-    font-family: 'Playfair Display', serif;
-    font-size: 0.95rem;
-    font-weight: 600;
-    line-height: 1.3;
-    transition: color 0.25s;
-    margin-bottom: 4px;
-  }
-
-  .popular-meta {
-    font-family: 'DM Mono', monospace;
-    font-size: 0.58rem;
-    color: var(--c30-muted);
-    letter-spacing: 0.08em;
-  }
-
-  /* ===== QUOTE BANNER ===== */
-  .quote-banner {
-    background: var(--c30);
-    color: var(--c60);
-    padding: var(--s2) var(--s3);
+    padding: var(--s2) 0;
     text-align: center;
-    border-top: 1px solid rgba(245,240,232,0.1);
-    border-bottom: 1px solid rgba(245,240,232,0.1);
+    margin: var(--s2) 0 0;
   }
 
-  .quote-text {
+  .banner-quote {
     font-family: 'Playfair Display', serif;
-    font-size: clamp(1.5rem, 3vw, 2.2rem);
+    font-size: clamp(1.3rem, 2.5vw, 1.9rem);
     font-weight: 400;
     font-style: italic;
-    line-height: 1.4;
-    max-width: 700px;
-    margin: 0 auto var(--u);
-    color: var(--c60);
+    color: var(--c30);
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto 12px;
   }
 
-  .quote-text em { color: var(--c10-light); }
+  .banner-quote span { color: var(--c10); }
 
-  .quote-source {
+  .banner-src {
     font-family: 'DM Mono', monospace;
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     letter-spacing: 0.25em;
+    color: var(--c30-muted);
     text-transform: uppercase;
-    color: rgba(245,240,232,0.4);
   }
 
   /* ===== FOOTER ===== */
   footer {
     background: var(--c30);
-    color: var(--c60);
-    padding: var(--s3) var(--s2) var(--s1);
+    color: rgba(255,255,255,0.55);
+    padding: var(--s3) 0 var(--s1);
+    margin-top: 0;
   }
 
-  .footer-grid {
+  .footer-top {
     display: grid;
     grid-template-columns: var(--col-wide) var(--col-narrow);
     gap: var(--s2);
-    border-bottom: 1px solid rgba(245,240,232,0.1);
     padding-bottom: var(--s2);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
     margin-bottom: var(--s1);
   }
 
-  .footer-brand .site-title {
-    color: var(--c60);
-    margin-bottom: 10px;
-  }
+  .footer-brand .site-title { color: white; margin-bottom: 10px; }
 
   .footer-desc {
-    font-size: 0.9rem;
-    color: rgba(245,240,232,0.5);
-    line-height: 1.7;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.75;
     max-width: 400px;
   }
 
-  .footer-links-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: var(--s1);
-  }
-
-  .footer-col-title {
+  .footer-members-title {
     font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     letter-spacing: 0.28em;
     text-transform: uppercase;
     color: var(--c10-light);
     margin-bottom: 14px;
   }
 
-  .footer-link {
-    display: block;
-    font-family: 'Lora', serif;
-    font-size: 0.88rem;
-    color: rgba(245,240,232,0.55);
-    text-decoration: none;
-    margin-bottom: 8px;
-    transition: color 0.25s;
+  .footer-member {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
   }
 
-  .footer-link:hover { color: var(--c60); }
+  .footer-member-av {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    background: rgba(37,99,235,0.2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    color: var(--c10-light);
+    flex-shrink: 0;
+  }
+
+  .footer-member-name {
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.7);
+  }
 
   .footer-bottom {
     display: flex;
@@ -769,73 +823,66 @@
 
   .footer-copy {
     font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
-    color: rgba(245,240,232,0.3);
+    font-size: 0.6rem;
     letter-spacing: 0.15em;
+    color: rgba(255,255,255,0.25);
     text-transform: uppercase;
   }
 
   .footer-phi {
     font-family: 'DM Mono', monospace;
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     color: var(--c10-light);
     letter-spacing: 0.15em;
   }
 
-  /* ===== SCROLL REVEAL ===== */
+  /* ===== REVEAL ===== */
   .reveal {
     opacity: 0;
-    transform: translateY(20px);
-    transition: opacity 0.7s ease, transform 0.7s ease;
-  }
-  .reveal.visible {
-    opacity: 1;
-    transform: translateY(0);
+    transform: translateY(18px);
+    transition: opacity 0.65s ease, transform 0.65s ease;
   }
 
-  /* ===== READING PROGRESS BAR ===== */
-  .progress-bar {
-    position: fixed;
-    top: 0; left: 0;
-    height: 3px;
-    background: var(--c10);
-    z-index: 1000;
-    width: 0%;
-    transition: width 0.1s linear;
-  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
 
   /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
-    .hero-featured { grid-template-columns: 1fr; }
-    .featured-sidebar { border-top: 1px solid var(--border); }
-    .main-layout { grid-template-columns: 1fr; }
-    .sidebar { border-top: 2px solid var(--c30); }
-    .articles-grid { grid-template-columns: 1fr; }
-    .footer-grid { grid-template-columns: 1fr; }
-    .article-horizontal { grid-template-columns: 1fr; }
-    .header-top { flex-direction: column; gap: 10px; }
-    .quote-banner { padding: var(--s2) var(--u); }
+    .wrapper { padding: 0 20px; }
+    .header-inner { grid-template-columns: 1fr; text-align: center; gap: 10px; }
+    .header-left { justify-content: center; }
+    .header-right { justify-content: center; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-main { border-right: none; border-bottom: 1px solid var(--border); padding: var(--s1) 0; }
+    .content-layout { grid-template-columns: 1fr; }
+    .article-grid { grid-template-columns: 1fr; }
+    .article-list-item { grid-template-columns: 1fr; }
+    .footer-top { grid-template-columns: 1fr; }
   }
 
 </style>
 </head>
 <body>
 
-<div class="progress-bar" id="progressBar"></div>
+<div class="progress" id="prog"></div>
 
 <!-- TOPBAR -->
 <div class="topbar">
-  Edisi April 2026 &nbsp;·&nbsp; <span>✦ Selamat Membaca</span> &nbsp;·&nbsp; Diterbitkan setiap Senin & Kamis
+  Tugas Kelompok &nbsp;·&nbsp; <b>Pemrograman Web</b> &nbsp;·&nbsp; 2025 / 2026
 </div>
 
 <!-- HEADER -->
 <header>
-  <div class="header-top">
-    <div class="header-date">Minggu, 5 April 2026</div>
-    <div class="site-title">Ruang <span>Baca</span></div>
-    <div class="header-action">
-      <input type="text" class="search-box" placeholder="Cari artikel...">
-      <button class="btn-subscribe">Langganan</button>
+  <div class="header-inner wrapper">
+    <div class="header-left">
+      <div class="dot"></div>
+      <span>Blog Aktif</span>
+    </div>
+    <div class="site-title">Kelompok <span>Lima</span></div>
+    <div class="header-right">
+      <div class="search-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" placeholder="Cari artikel...">
+      </div>
     </div>
   </div>
   <nav>
@@ -843,333 +890,327 @@
     <a href="#" class="nav-item">Teknologi</a>
     <a href="#" class="nav-item">Desain</a>
     <a href="#" class="nav-item">Budaya</a>
-    <a href="#" class="nav-item">Bisnis</a>
     <a href="#" class="nav-item">Sains</a>
     <a href="#" class="nav-item">Esai</a>
-    <a href="#" class="nav-item">Wawancara</a>
+    <a href="#" class="nav-item">Anggota</a>
   </nav>
 </header>
 
-<!-- HERO FEATURED -->
-<section class="hero-featured reveal">
-  <div class="featured-main">
-    <div class="featured-label">Artikel Pilihan</div>
-    <div class="featured-cat">Desain</div>
-    <h1 class="featured-title">
-      Mengapa <em>Proporsi Emas</em> Masih Relevan di Era Digital?
-    </h1>
-    <p class="featured-excerpt">
-      Dari arsitektur Yunani Kuno hingga antarmuka aplikasi modern — rasio 1:1.618 terus muncul sebagai formula keindahan yang melampaui zaman. Sebuah penjelajahan mendalam tentang mengapa otak manusia beresonansi dengan harmoni matematis ini.
-    </p>
-    <div class="article-meta">
-      <span class="meta-author">Oleh Andini Kusuma</span>
-      <span class="meta-dot">·</span>
-      <span class="meta-date">3 April 2026</span>
-      <span class="meta-dot">·</span>
-      <span class="meta-read">8 menit baca</span>
+<!-- HERO -->
+<div class="wrapper">
+  <section class="hero reveal">
+    <div class="hero-main">
+      <div class="hero-badge">Artikel Utama</div>
+      <h1 class="hero-title">Golden Ratio dalam Desain Web: Antara Matematika dan Keindahan</h1>
+      <p class="hero-excerpt">
+        Proporsi 1:1.618 yang ditemukan ribuan tahun lalu ternyata masih sangat relevan dalam dunia desain digital modern. Dari layout halaman hingga pemilihan ukuran font — golden ratio hadir di mana-mana, bahkan tanpa kita sadari.
+      </p>
+      <div class="hero-meta">
+        <div class="avatar">AE</div>
+        <span class="meta-author">Aditya Eka Saputra</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-date">5 April 2026</span>
+        <span class="meta-sep">·</span>
+        <span class="meta-read">8 mnt baca</span>
+      </div>
     </div>
+
+    <div class="hero-sidebar">
+      <div class="side-article">
+        <div class="side-num">01</div>
+        <div>
+          <div class="side-cat">Teknologi</div>
+          <div class="side-title">CSS Grid vs Flexbox: Kapan Harus Pakai yang Mana?</div>
+          <div class="side-meta">Muhammad Ramdani · 6 mnt</div>
+        </div>
+      </div>
+      <div class="side-article">
+        <div class="side-num">02</div>
+        <div>
+          <div class="side-cat">Desain</div>
+          <div class="side-title">Psikologi Warna dalam UI: Lebih dari Sekadar Estetika</div>
+          <div class="side-meta">Valdinata Alfauzan · 7 mnt</div>
+        </div>
+      </div>
+      <div class="side-article">
+        <div class="side-num">03</div>
+        <div>
+          <div class="side-cat">Sains</div>
+          <div class="side-title">Algoritma di Balik Rekomendasi Konten yang Kita Konsumsi</div>
+          <div class="side-meta">Taufik Kurniawan · 9 mnt</div>
+        </div>
+      </div>
+      <div class="side-article">
+        <div class="side-num">04</div>
+        <div>
+          <div class="side-cat">Esai</div>
+          <div class="side-title">Belajar Koding di Era AI: Masih Relevan atau Sudah Usang?</div>
+          <div class="side-meta">Lazuardi Ananda · 5 mnt</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SECTION LABEL -->
+  <div class="sec-label reveal">
+    <span class="sec-label-text">Artikel Terbaru</span>
+    <div class="sec-line"></div>
+    <a href="#" class="sec-link">Lihat Semua →</a>
   </div>
 
-  <div class="featured-sidebar">
-    <div class="sidebar-post">
-      <div class="sidebar-num">01</div>
-      <div>
-        <div class="sidebar-cat">Teknologi</div>
-        <div class="sidebar-title">AI Generatif dan Masa Depan Pekerjaan Kreatif</div>
-        <div class="sidebar-meta">Budi Santoso · 5 mnt</div>
+  <!-- MAIN CONTENT -->
+  <div class="content-layout">
+
+    <!-- ARTICLES -->
+    <div>
+      <div class="article-grid reveal">
+        <div class="article-card">
+          <div class="card-thumb ct-1">💻</div>
+          <div class="card-body">
+            <div class="card-cat">Teknologi</div>
+            <div class="card-title">Responsive Design: Membuat Web yang Nyaman di Semua Layar</div>
+            <p class="card-excerpt">Dari smartphone 4 inci hingga monitor 4K, desain responsif adalah fondasi web modern. Pelajari teknik media query, fluid grid, dan flexible images secara mendalam.</p>
+            <div class="card-footer">
+              <div class="card-author">
+                <div class="avatar">MR</div>
+                <span class="card-author-name">Muhammad Ramdani</span>
+              </div>
+              <span class="card-read">4 Apr · 6 mnt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="card-thumb ct-2">🎨</div>
+          <div class="card-body">
+            <div class="card-cat">Desain</div>
+            <div class="card-title">Tipografi Web: Memilih Font yang Tepat untuk Keterbacaan Optimal</div>
+            <p class="card-excerpt">Pilihan font bukan sekadar soal selera. Ada ilmu di balik keterbacaan, hierarki visual, dan bagaimana huruf memengaruhi persepsi pengguna terhadap sebuah website.</p>
+            <div class="card-footer">
+              <div class="card-author">
+                <div class="avatar">VA</div>
+                <span class="card-author-name">Valdinata Alfauzan</span>
+              </div>
+              <span class="card-read">3 Apr · 5 mnt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="card-thumb ct-3">🧠</div>
+          <div class="card-body">
+            <div class="card-cat">Sains</div>
+            <div class="card-title">Bagaimana Otak Memproses Informasi Visual di Layar Digital?</div>
+            <p class="card-excerpt">Neurosains kognitif mengungkap cara manusia membaca dan memindai halaman web. Temuan ini mengubah cara desainer menyusun layout dan hierarki konten.</p>
+            <div class="card-footer">
+              <div class="card-author">
+                <div class="avatar">TK</div>
+                <span class="card-author-name">Taufik Kurniawan</span>
+              </div>
+              <span class="card-read">2 Apr · 8 mnt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-card">
+          <div class="card-thumb ct-4">✍️</div>
+          <div class="card-body">
+            <div class="card-cat">Esai</div>
+            <div class="card-title">GitHub sebagai Portofolio: Kenapa Developer Harus Aktif Berkontribusi</div>
+            <p class="card-excerpt">Di era digital, GitHub bukan sekadar tempat menyimpan kode. Ia adalah CV hidup yang berbicara lebih keras dari selembar kertas lamaran kerja manapun.</p>
+            <div class="card-footer">
+              <div class="card-author">
+                <div class="avatar">LA</div>
+                <span class="card-author-name">Lazuardi Ananda</span>
+              </div>
+              <span class="card-read">1 Apr · 6 mnt</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- LIST -->
+      <div class="reveal">
+        <div class="article-list-item">
+          <div class="list-thumb lt-1">🌐</div>
+          <div>
+            <div class="card-cat">Teknologi</div>
+            <div class="card-title">Dari HTML ke React: Perjalanan Panjang Frontend Development</div>
+            <p class="card-excerpt">Sejarah singkat bagaimana web berkembang dari halaman statis HTML sederhana menjadi Single Page Application yang kompleks seperti sekarang.</p>
+            <div class="card-footer" style="border:none;padding:8px 0 0;">
+              <div class="card-author">
+                <div class="avatar">AE</div>
+                <span class="card-author-name">Aditya Eka Saputra</span>
+              </div>
+              <span class="card-read">31 Mar · 10 mnt</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="article-list-item">
+          <div class="list-thumb lt-2">📱</div>
+          <div>
+            <div class="card-cat">Desain</div>
+            <div class="card-title">Mobile-First Design: Mengapa Harus Mulai dari Layar Terkecil?</div>
+            <p class="card-excerpt">Lebih dari 60% traffic web global datang dari perangkat mobile. Pendekatan mobile-first bukan tren — ini sudah menjadi standar industri yang tidak bisa diabaikan.</p>
+            <div class="card-footer" style="border:none;padding:8px 0 0;">
+              <div class="card-author">
+                <div class="avatar">MR</div>
+                <span class="card-author-name">Muhammad Ramdani</span>
+              </div>
+              <span class="card-read">30 Mar · 7 mnt</span>
+            </div>
+          </div>
+        </div>
       </div>
     </div>
-    <div class="sidebar-post">
-      <div class="sidebar-num">02</div>
-      <div>
-        <div class="sidebar-cat">Budaya</div>
-        <div class="sidebar-title">Kebangkitan Estetika Lokal di Panggung Global</div>
-        <div class="sidebar-meta">Sari Dewi · 7 mnt</div>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar">
+
+      <!-- MEMBERS -->
+      <div class="members-card reveal">
+        <div class="members-head">
+          <span class="members-head-title">✦ Anggota Kelompok</span>
+          <span class="members-count">5 orang</span>
+        </div>
+        <div class="member-item">
+          <div class="member-avatar">AE</div>
+          <div class="member-info">
+            <div class="member-name">Aditya Eka Saputra</div>
+            <div class="member-role">Ketua · Frontend</div>
+          </div>
+          <div class="member-num">01</div>
+        </div>
+        <div class="member-item">
+          <div class="member-avatar">MR</div>
+          <div class="member-info">
+            <div class="member-name">Muhammad Ramdani</div>
+            <div class="member-role">Backend · DevOps</div>
+          </div>
+          <div class="member-num">02</div>
+        </div>
+        <div class="member-item">
+          <div class="member-avatar">VA</div>
+          <div class="member-info">
+            <div class="member-name">Valdinata Alfauzan</div>
+            <div class="member-role">UI/UX Designer</div>
+          </div>
+          <div class="member-num">03</div>
+        </div>
+        <div class="member-item">
+          <div class="member-avatar">TK</div>
+          <div class="member-info">
+            <div class="member-name">Taufik Kurniawan</div>
+            <div class="member-role">Penulis · Riset</div>
+          </div>
+          <div class="member-num">04</div>
+        </div>
+        <div class="member-item">
+          <div class="member-avatar">LA</div>
+          <div class="member-info">
+            <div class="member-name">Lazuardi Ananda</div>
+            <div class="member-role">Editor · Konten</div>
+          </div>
+          <div class="member-num">05</div>
+        </div>
       </div>
-    </div>
-    <div class="sidebar-post">
-      <div class="sidebar-num">03</div>
-      <div>
-        <div class="sidebar-cat">Bisnis</div>
-        <div class="sidebar-title">Startup Indonesia yang Mengubah Cara Dunia Bertransaksi</div>
-        <div class="sidebar-meta">Rizky Pratama · 6 mnt</div>
+
+      <!-- NEWSLETTER -->
+      <div class="newsletter-box reveal">
+        <div class="nl-label">✦ Newsletter</div>
+        <div class="nl-title">Artikel terbaru langsung ke inbox</div>
+        <p class="nl-desc">Dapatkan kiriman artikel pilihan dari kami setiap minggu.</p>
+        <input type="email" class="nl-input" placeholder="email@kamu.com">
+        <button class="nl-btn">Langganan →</button>
       </div>
-    </div>
-    <div class="sidebar-post">
-      <div class="sidebar-num">04</div>
-      <div>
-        <div class="sidebar-cat">Sains</div>
-        <div class="sidebar-title">Peta Otak Manusia: Apa yang Baru Kita Temukan?</div>
-        <div class="sidebar-meta">Dr. Laila Arif · 9 mnt</div>
+
+      <!-- TAGS -->
+      <div class="tags-box reveal">
+        <div class="tags-title">Topik</div>
+        <div class="tags-wrap">
+          <span class="tag">HTML & CSS</span>
+          <span class="tag">JavaScript</span>
+          <span class="tag">UI Design</span>
+          <span class="tag">Git & GitHub</span>
+          <span class="tag">Responsive</span>
+          <span class="tag">Typography</span>
+          <span class="tag">Warna</span>
+          <span class="tag">Frontend</span>
+          <span class="tag">Animasi</span>
+          <span class="tag">Aksesibilitas</span>
+        </div>
       </div>
-    </div>
+
+    </aside>
   </div>
-</section>
 
-<!-- DIVIDER -->
-<div class="section-divider">
-  <div class="divider-title">Artikel Terbaru</div>
-  <div class="divider-line"></div>
-  <a href="#" class="divider-link">Lihat Semua →</a>
-</div>
-
-<!-- MAIN LAYOUT -->
-<div class="main-layout">
-  <!-- ARTICLES -->
-  <div class="articles-area">
-    <div class="articles-grid reveal">
-      <!-- Card 1 -->
-      <div class="article-card">
-        <div class="card-image card-img-1">
-          <div class="card-image-inner">
-            <span class="card-icon">🎨</span>
-          </div>
-        </div>
-        <div class="card-cat">Desain</div>
-        <div class="card-title">Tipografi Sebagai Bahasa: Lebih dari Sekadar Huruf</div>
-        <p class="card-excerpt">Setiap pilihan font menyampaikan pesan tersembunyi. Pelajari bagaimana desainer kelas dunia memilih huruf bukan hanya soal estetika, melainkan soal makna dan emosi.</p>
-        <div class="card-meta">
-          <span>Andini K.</span>
-          <span>·</span>
-          <span>5 April 2026</span>
-          <span>·</span>
-          <span>6 mnt</span>
-        </div>
-      </div>
-      <!-- Card 2 -->
-      <div class="article-card">
-        <div class="card-image card-img-2">
-          <div class="card-image-inner">
-            <span class="card-icon">💻</span>
-          </div>
-        </div>
-        <div class="card-cat">Teknologi</div>
-        <div class="card-title">Dari Browser ke OS: Bagaimana Web Menjadi Platform Segalanya</div>
-        <p class="card-excerpt">Web Assembly, Progressive Web Apps, dan Edge Computing kini mengaburkan batas antara aplikasi native dan web. Kita sedang menyaksikan revolusi platform yang senyap.</p>
-        <div class="card-meta">
-          <span>Budi S.</span>
-          <span>·</span>
-          <span>4 April 2026</span>
-          <span>·</span>
-          <span>8 mnt</span>
-        </div>
-      </div>
-      <!-- Card 3 -->
-      <div class="article-card">
-        <div class="card-image card-img-3">
-          <div class="card-image-inner">
-            <span class="card-icon">🧠</span>
-          </div>
-        </div>
-        <div class="card-cat">Sains</div>
-        <div class="card-title">Neuroplastisitas: Otak yang Tidak Pernah Berhenti Belajar</div>
-        <p class="card-excerpt">Penelitian terbaru menunjukkan bahwa otak manusia mampu membentuk koneksi baru hingga usia tua. Temuan ini mengubah cara kita memandang pendidikan, rehabilitasi, dan potensi manusia.</p>
-        <div class="card-meta">
-          <span>Dr. Laila A.</span>
-          <span>·</span>
-          <span>3 April 2026</span>
-          <span>·</span>
-          <span>10 mnt</span>
-        </div>
-      </div>
-      <!-- Card 4 -->
-      <div class="article-card">
-        <div class="card-image card-img-4">
-          <div class="card-image-inner">
-            <span class="card-icon">🌿</span>
-          </div>
-        </div>
-        <div class="card-cat">Budaya</div>
-        <div class="card-title">Kopi Nusantara dan Identitas yang Tertuang dalam Cangkir</div>
-        <p class="card-excerpt">Di balik setiap tegukan kopi Indonesia tersimpan sejarah panjang, perjuangan petani, dan identitas budaya yang kini mulai diakui dunia. Sebuah perjalanan dari ladang ke cangkir.</p>
-        <div class="card-meta">
-          <span>Sari D.</span>
-          <span>·</span>
-          <span>2 April 2026</span>
-          <span>·</span>
-          <span>7 mnt</span>
-        </div>
-      </div>
+  <!-- QUOTE BANNER -->
+  <div class="banner reveal">
+    <div class="banner-quote">
+      "Desain bukan hanya soal tampilan — ia soal <span>bagaimana sesuatu bekerja.</span>"
     </div>
-
-    <!-- HORIZONTAL ARTICLES -->
-    <div class="reveal">
-      <div class="article-horizontal">
-        <div class="horiz-image horiz-img-1">
-          <div class="card-image-inner">
-            <span class="card-icon">📊</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-cat">Bisnis</div>
-          <div class="card-title">Ekonomi Kreator: Ketika Passion Menjadi Profesi Bermartabat</div>
-          <p class="card-excerpt">Industri konten digital Indonesia tumbuh 40% dalam dua tahun terakhir. Bagaimana para kreator membangun bisnis berkelanjutan di atas platform yang terus berubah?</p>
-          <div class="card-meta">
-            <span>Rizky P.</span>
-            <span>·</span>
-            <span>1 April 2026</span>
-            <span>·</span>
-            <span>9 mnt baca</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="article-horizontal">
-        <div class="horiz-image horiz-img-2">
-          <div class="card-image-inner">
-            <span class="card-icon">✍️</span>
-          </div>
-        </div>
-        <div>
-          <div class="card-cat">Esai</div>
-          <div class="card-title">Seni Menulis Lambat di Dunia yang Bergerak Cepat</div>
-          <p class="card-excerpt">Di tengah arus konten yang membanjiri setiap hari, ada gerakan diam-diam yang memilih kedalaman ketimbang kecepatan. Slow journalism dan long-form writing sedang menemukan kembali audiensnya.</p>
-          <div class="card-meta">
-            <span>Andini K.</span>
-            <span>·</span>
-            <span>31 Maret 2026</span>
-            <span>·</span>
-            <span>12 mnt baca</span>
-          </div>
-        </div>
-      </div>
-    </div>
+    <div class="banner-src">— Steve Jobs</div>
   </div>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar">
-
-    <!-- Newsletter -->
-    <div class="sidebar-newsletter reveal">
-      <div class="newsletter-label">✦ Newsletter</div>
-      <div class="newsletter-title">Jangan lewatkan satu artikel <em>pun</em></div>
-      <p class="newsletter-desc">Kiriman pilihan editorial langsung ke kotak masuk Anda, setiap Senin & Kamis pagi.</p>
-      <input type="email" class="newsletter-input" placeholder="alamat@email.com">
-      <button class="newsletter-btn">Langganan Gratis →</button>
-    </div>
-
-    <!-- Popular -->
-    <div class="sidebar-section reveal">
-      <div class="sidebar-heading">Paling Banyak Dibaca</div>
-      <div class="popular-item">
-        <div class="popular-rank">01</div>
-        <div>
-          <div class="popular-cat">Teknologi</div>
-          <div class="popular-title">10 Tools AI yang Mengubah Cara Desainer Bekerja</div>
-          <div class="popular-meta">12.4k pembaca · 7 mnt</div>
-        </div>
-      </div>
-      <div class="popular-item">
-        <div class="popular-rank">02</div>
-        <div>
-          <div class="popular-cat">Bisnis</div>
-          <div class="popular-title">Rahasia Brand Lokal yang Berhasil Tembus Pasar Global</div>
-          <div class="popular-meta">9.8k pembaca · 8 mnt</div>
-        </div>
-      </div>
-      <div class="popular-item">
-        <div class="popular-rank">03</div>
-        <div>
-          <div class="popular-cat">Esai</div>
-          <div class="popular-title">Mengapa Kita Semakin Sulit Fokus (dan Cara Mengatasinya)</div>
-          <div class="popular-meta">8.2k pembaca · 6 mnt</div>
-        </div>
-      </div>
-      <div class="popular-item">
-        <div class="popular-rank">04</div>
-        <div>
-          <div class="popular-cat">Budaya</div>
-          <div class="popular-title">Batik di Era Generasi Z: Tradisi yang Menemukan Bahasa Baru</div>
-          <div class="popular-meta">7.1k pembaca · 5 mnt</div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Tags -->
-    <div class="sidebar-section reveal">
-      <div class="sidebar-heading">Topik Populer</div>
-      <div class="tags-cloud">
-        <span class="tag">AI & Machine Learning</span>
-        <span class="tag">UX Design</span>
-        <span class="tag">Startup</span>
-        <span class="tag">Psikologi</span>
-        <span class="tag">Produktivitas</span>
-        <span class="tag">Seni Visual</span>
-        <span class="tag">Iklim</span>
-        <span class="tag">Pendidikan</span>
-        <span class="tag">Filosofi</span>
-        <span class="tag">Film</span>
-        <span class="tag">Musik</span>
-        <span class="tag">Arsitektur</span>
-      </div>
-    </div>
-
-  </aside>
-</div>
-
-<!-- QUOTE BANNER -->
-<div class="quote-banner reveal">
-  <div class="quote-text">
-    "Menulis adalah cara berpikir paling jujur yang pernah <em>ditemukan manusia.</em>"
-  </div>
-  <div class="quote-source">— Pramoedya Ananta Toer</div>
 </div>
 
 <!-- FOOTER -->
 <footer>
-  <div class="footer-grid">
-    <div class="footer-brand">
-      <div class="site-title">Ruang <span>Baca</span></div>
-      <p class="footer-desc">
-        Platform editorial independen yang menghadirkan tulisan berkualitas tentang teknologi, desain, budaya, dan gagasan-gagasan yang membentuk dunia kita. Terbit sejak 2020.
-      </p>
-    </div>
-    <div class="footer-links-grid">
-      <div>
-        <div class="footer-col-title">Kategori</div>
-        <a href="#" class="footer-link">Teknologi</a>
-        <a href="#" class="footer-link">Desain</a>
-        <a href="#" class="footer-link">Budaya</a>
-        <a href="#" class="footer-link">Bisnis</a>
-        <a href="#" class="footer-link">Sains</a>
+  <div class="wrapper">
+    <div class="footer-top">
+      <div class="footer-brand">
+        <div class="site-title">Kelompok <span>Lima</span></div>
+        <p class="footer-desc">
+          Blog tugas kelompok mata kuliah Pemrograman Web. Berisi artikel seputar teknologi, desain, dan pengembangan web yang ditulis oleh 5 anggota kelompok.
+        </p>
       </div>
       <div>
-        <div class="footer-col-title">Lainnya</div>
-        <a href="#" class="footer-link">Tentang Kami</a>
-        <a href="#" class="footer-link">Tim Editorial</a>
-        <a href="#" class="footer-link">Kirim Tulisan</a>
-        <a href="#" class="footer-link">Iklan & Kerjasama</a>
-        <a href="#" class="footer-link">Kebijakan Privasi</a>
+        <div class="footer-members-title">Anggota Kelompok</div>
+        <div class="footer-member">
+          <div class="footer-member-av">AE</div>
+          <span class="footer-member-name">Aditya Eka Saputra</span>
+        </div>
+        <div class="footer-member">
+          <div class="footer-member-av">MR</div>
+          <span class="footer-member-name">Muhammad Ramdani</span>
+        </div>
+        <div class="footer-member">
+          <div class="footer-member-av">VA</div>
+          <span class="footer-member-name">Valdinata Alfauzan</span>
+        </div>
+        <div class="footer-member">
+          <div class="footer-member-av">TK</div>
+          <span class="footer-member-name">Taufik Kurniawan</span>
+        </div>
+        <div class="footer-member">
+          <div class="footer-member-av">LA</div>
+          <span class="footer-member-name">Lazuardi Ananda</span>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="footer-bottom">
-    <div class="footer-copy">© 2026 Ruang Baca — Semua hak dilindungi</div>
-    <div class="footer-phi">φ 60 : 30 : 10</div>
+    <div class="footer-bottom">
+      <div class="footer-copy">© 2026 Kelompok Lima — Tugas Pemrograman Web</div>
+      <div class="footer-phi">φ 60 : 30 : 10</div>
+    </div>
   </div>
 </footer>
 
 <script>
-  // Reading progress bar
+  // Progress bar
   window.addEventListener('scroll', () => {
-    const scrollTop = window.scrollY;
-    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-    const progress = (scrollTop / docHeight) * 100;
-    document.getElementById('progressBar').style.width = progress + '%';
+    const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
+    document.getElementById('prog').style.width = pct + '%';
   });
 
   // Scroll reveal
-  const reveals = document.querySelectorAll('.reveal');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach((entry, i) => {
-      if (entry.isIntersecting) {
-        setTimeout(() => entry.target.classList.add('visible'), i * 80);
-      }
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach((e, i) => {
+      if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
     });
   }, { threshold: 0.08 });
-  reveals.forEach(el => observer.observe(el));
+  document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Nav active state
+  // Nav active
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', e => {
       e.preventDefault();
