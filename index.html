@@ -7,12 +7,6 @@
 <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400;1,600&family=Plus+Jakarta+Sans:wght@300;400;500;600&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
 <style>
 
-  /* =====================
-     COLOR RULE 60:30:10
-     60% → Pure White / Off-white (dominan)
-     30% → Soft Black / Charcoal (teks & elemen)
-     10% → Cobalt Blue (aksen)
-  ===================== */
   :root {
     --c60: #ffffff;
     --c60-alt: #f8f8f6;
@@ -25,7 +19,6 @@
     --c10-pale: rgba(22,163,74,0.07);
     --border: #e8e8e4;
 
-    /* Golden Ratio φ = 1.618 */
     --s1: 1.618rem;
     --s2: 2.618rem;
     --s3: 4.236rem;
@@ -47,7 +40,6 @@
     overflow-x: hidden;
   }
 
-  /* ===== PROGRESS BAR ===== */
   .progress {
     position: fixed;
     top: 0; left: 0;
@@ -58,7 +50,6 @@
     transition: width 0.1s linear;
   }
 
-  /* ===== TOPBAR ===== */
   .topbar {
     background: var(--c30);
     color: rgba(255,255,255,0.6);
@@ -72,7 +63,6 @@
 
   .topbar b { color: #fff; }
 
-  /* ===== HEADER ===== */
   header {
     border-bottom: 1px solid var(--border);
     background: var(--c60);
@@ -126,9 +116,7 @@
     letter-spacing: -0.02em;
   }
 
-  .site-title span {
-    color: var(--c10);
-  }
+  .site-title span { color: var(--c10); }
 
   .header-right {
     display: flex;
@@ -137,9 +125,7 @@
     gap: 12px;
   }
 
-  .search-wrap {
-    position: relative;
-  }
+  .search-wrap { position: relative; }
 
   .search-wrap input {
     font-family: 'DM Mono', monospace;
@@ -154,11 +140,7 @@
     transition: border-color 0.25s, width 0.3s;
   }
 
-  .search-wrap input:focus {
-    border-color: var(--c10);
-    width: 200px;
-  }
-
+  .search-wrap input:focus { border-color: var(--c10); width: 200px; }
   .search-wrap input::placeholder { color: var(--c30-muted); }
 
   .search-icon {
@@ -167,6 +149,238 @@
     transform: translateY(-50%);
     color: var(--c30-muted);
     font-size: 0.8rem;
+  }
+
+  /* ===== NOTIFIKASI BELL ===== */
+  .notif-wrap {
+    position: relative;
+  }
+
+  .notif-btn {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border);
+    border-radius: 50%;
+    background: var(--c60-alt);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1rem;
+    transition: all 0.2s;
+    position: relative;
+  }
+
+  .notif-btn:hover {
+    background: var(--c60-soft);
+    border-color: var(--c30-muted);
+  }
+
+  .notif-badge {
+    position: absolute;
+    top: -4px; right: -4px;
+    min-width: 17px; height: 17px;
+    background: #dc2626;
+    color: white;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.55rem;
+    font-weight: 400;
+    border-radius: 9px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 4px;
+    border: 2px solid var(--c60);
+    opacity: 0;
+    transform: scale(0.5);
+    transition: opacity 0.25s, transform 0.25s;
+    pointer-events: none;
+  }
+
+  .notif-badge.visible {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .notif-badge.shake {
+    animation: bellShake 0.4s ease;
+  }
+
+  @keyframes bellShake {
+    0%, 100% { transform: scale(1) rotate(0deg); }
+    20% { transform: scale(1) rotate(-12deg); }
+    40% { transform: scale(1) rotate(10deg); }
+    60% { transform: scale(1) rotate(-8deg); }
+    80% { transform: scale(1) rotate(6deg); }
+  }
+
+  /* ===== NOTIFIKASI DROPDOWN ===== */
+  .notif-dropdown {
+    position: absolute;
+    top: calc(100% + 10px);
+    right: 0;
+    width: 320px;
+    background: var(--c60);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+    z-index: 300;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(-8px);
+    transition: opacity 0.22s ease, transform 0.22s ease;
+  }
+
+  .notif-dropdown.open {
+    opacity: 1;
+    pointer-events: all;
+    transform: translateY(0);
+  }
+
+  .notif-head {
+    padding: 14px 16px 10px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  .notif-head-title {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: var(--c30);
+  }
+
+  .notif-clear {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--c10);
+    cursor: pointer;
+    transition: opacity 0.2s;
+    border: none;
+    background: none;
+    padding: 0;
+  }
+
+  .notif-clear:hover { opacity: 0.65; }
+
+  .notif-list {
+    max-height: 320px;
+    overflow-y: auto;
+  }
+
+  .notif-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 13px 16px;
+    border-bottom: 1px solid var(--border);
+    cursor: pointer;
+    transition: background 0.18s;
+    position: relative;
+  }
+
+  .notif-item:last-child { border-bottom: none; }
+  .notif-item:hover { background: var(--c60-alt); }
+
+  .notif-item.unread { background: var(--c10-pale); }
+  .notif-item.unread:hover { background: rgba(22,163,74,0.12); }
+
+  .notif-icon {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+
+  .ni-green { background: var(--c10-pale); }
+  .ni-blue { background: rgba(59,130,246,0.08); }
+  .ni-amber { background: rgba(245,158,11,0.08); }
+  .ni-red { background: rgba(220,38,38,0.08); }
+
+  .notif-text { flex: 1; }
+
+  .notif-msg {
+    font-size: 0.82rem;
+    color: var(--c30-mid);
+    line-height: 1.5;
+    margin-bottom: 3px;
+  }
+
+  .notif-msg b { color: var(--c30); font-weight: 600; }
+
+  .notif-time {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.58rem;
+    color: var(--c30-muted);
+    letter-spacing: 0.06em;
+  }
+
+  .unread-dot {
+    width: 6px; height: 6px;
+    background: var(--c10);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%; right: 14px;
+    transform: translateY(-50%);
+    flex-shrink: 0;
+  }
+
+  .notif-empty {
+    padding: 32px 16px;
+    text-align: center;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.12em;
+    color: var(--c30-muted);
+    text-transform: uppercase;
+  }
+
+  /* ===== TOAST ===== */
+  .toast-container {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 500;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    pointer-events: none;
+  }
+
+  .toast {
+    background: var(--c30);
+    color: white;
+    padding: 10px 16px;
+    border-radius: 6px;
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    box-shadow: 0 4px 16px rgba(0,0,0,0.18);
+    pointer-events: all;
+    transform: translateX(120%);
+    transition: transform 0.3s cubic-bezier(0.34,1.56,0.64,1);
+    max-width: 280px;
+  }
+
+  .toast.show { transform: translateX(0); }
+  .toast.hide { transform: translateX(120%); transition: transform 0.25s ease-in; }
+
+  .toast-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
   }
 
   /* ===== NAV ===== */
@@ -196,14 +410,12 @@
   .nav-item:hover { color: var(--c30); background: var(--c60-alt); }
   .nav-item.active { color: var(--c10); border-bottom: 2px solid var(--c10); }
 
-  /* ===== WRAPPER ===== */
   .wrapper {
     max-width: 1200px;
     margin: 0 auto;
     padding: 0 40px;
   }
 
-  /* ===== HERO FEATURED ===== */
   .hero {
     display: grid;
     grid-template-columns: var(--col-wide) var(--col-narrow);
@@ -281,12 +493,7 @@
     color: var(--c10);
   }
 
-  .meta-author {
-    font-size: 0.82rem;
-    font-weight: 600;
-    color: var(--c30);
-  }
-
+  .meta-author { font-size: 0.82rem; font-weight: 600; color: var(--c30); }
   .meta-sep { color: var(--c30-muted); font-size: 0.75rem; }
 
   .meta-date, .meta-read {
@@ -303,11 +510,7 @@
     border-radius: 2px;
   }
 
-  /* Hero sidebar */
-  .hero-sidebar {
-    display: flex;
-    flex-direction: column;
-  }
+  .hero-sidebar { display: flex; flex-direction: column; }
 
   .side-article {
     padding: 20px var(--s1);
@@ -359,7 +562,6 @@
     letter-spacing: 0.08em;
   }
 
-  /* ===== SECTION LABEL ===== */
   .sec-label {
     display: flex;
     align-items: center;
@@ -393,7 +595,6 @@
 
   .sec-link:hover { opacity: 0.7; }
 
-  /* ===== MAIN CONTENT LAYOUT ===== */
   .content-layout {
     display: grid;
     grid-template-columns: var(--col-wide) var(--col-narrow);
@@ -401,7 +602,6 @@
     padding: var(--s2) 0;
   }
 
-  /* ===== ARTICLE GRID ===== */
   .article-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
@@ -480,11 +680,7 @@
     border-top: 1px solid var(--border);
   }
 
-  .card-author {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
+  .card-author { display: flex; align-items: center; gap: 8px; }
 
   .card-author-name {
     font-size: 0.78rem;
@@ -499,7 +695,6 @@
     letter-spacing: 0.08em;
   }
 
-  /* ===== LIST ARTICLES ===== */
   .article-list-item {
     display: grid;
     grid-template-columns: var(--col-narrow) 1fr;
@@ -528,10 +723,8 @@
 
   .article-list-item:hover .card-title { color: var(--c10); }
 
-  /* ===== SIDEBAR ===== */
-  .sidebar { }
+  .sidebar {}
 
-  /* Members card */
   .members-card {
     border: 1px solid var(--border);
     border-radius: 4px;
@@ -613,7 +806,6 @@
     font-weight: 300;
   }
 
-  /* Newsletter sidebar */
   .newsletter-box {
     border: 1px solid var(--border);
     border-radius: 4px;
@@ -680,7 +872,6 @@
 
   .nl-btn:hover { background: var(--c30); }
 
-  /* Tags */
   .tags-box {
     border: 1px solid var(--border);
     border-radius: 4px;
@@ -698,11 +889,7 @@
     border-bottom: 1px solid var(--border);
   }
 
-  .tags-wrap {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 7px;
-  }
+  .tags-wrap { display: flex; flex-wrap: wrap; gap: 7px; }
 
   .tag {
     font-family: 'DM Mono', monospace;
@@ -724,7 +911,6 @@
     background: var(--c10-pale);
   }
 
-  /* ===== BANNER QUOTE ===== */
   .banner {
     background: var(--c60-soft);
     border-top: 1px solid var(--border);
@@ -755,7 +941,6 @@
     text-transform: uppercase;
   }
 
-  /* ===== FOOTER ===== */
   footer {
     background: var(--c30);
     color: rgba(255,255,255,0.55);
@@ -836,7 +1021,6 @@
     letter-spacing: 0.15em;
   }
 
-  /* ===== REVEAL ===== */
   .reveal {
     opacity: 0;
     transform: translateY(18px);
@@ -845,7 +1029,7 @@
 
   .reveal.visible { opacity: 1; transform: translateY(0); }
 
-  /* ===== ARTICLE MODAL ===== */
+  /* ===== MODAL ===== */
   .modal-overlay {
     position: fixed;
     inset: 0;
@@ -861,10 +1045,7 @@
     overflow-y: auto;
   }
 
-  .modal-overlay.open {
-    opacity: 1;
-    pointer-events: all;
-  }
+  .modal-overlay.open { opacity: 1; pointer-events: all; }
 
   .modal-box {
     background: var(--c60);
@@ -878,9 +1059,7 @@
     position: relative;
   }
 
-  .modal-overlay.open .modal-box {
-    transform: translateY(0);
-  }
+  .modal-overlay.open .modal-box { transform: translateY(0); }
 
   .modal-header {
     padding: var(--s1) var(--s2);
@@ -914,15 +1093,9 @@
     flex-shrink: 0;
   }
 
-  .modal-close:hover {
-    background: var(--c30);
-    color: white;
-    border-color: var(--c30);
-  }
+  .modal-close:hover { background: var(--c30); color: white; border-color: var(--c30); }
 
-  .modal-body {
-    padding: var(--s2);
-  }
+  .modal-body { padding: var(--s2); }
 
   .modal-title {
     font-family: 'Playfair Display', serif;
@@ -943,10 +1116,7 @@
     margin-bottom: var(--s1);
   }
 
-  .modal-author {
-    font-size: 0.85rem;
-    font-weight: 600;
-  }
+  .modal-author { font-size: 0.85rem; font-weight: 600; }
 
   .modal-date, .modal-read {
     font-family: 'DM Mono', monospace;
@@ -962,15 +1132,8 @@
     border-radius: 2px;
   }
 
-  .modal-content {
-    font-size: 1rem;
-    line-height: 1.85;
-    color: var(--c30-mid);
-  }
-
-  .modal-content p {
-    margin-bottom: 1.2rem;
-  }
+  .modal-content { font-size: 1rem; line-height: 1.85; color: var(--c30-mid); }
+  .modal-content p { margin-bottom: 1.2rem; }
 
   .modal-content h3 {
     font-family: 'Playfair Display', serif;
@@ -999,11 +1162,7 @@
     justify-content: space-between;
   }
 
-  .modal-tags {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-  }
+  .modal-tags { display: flex; gap: 8px; flex-wrap: wrap; }
 
   .modal-tag {
     font-family: 'DM Mono', monospace;
@@ -1028,7 +1187,6 @@
 
   .modal-share:hover { opacity: 0.7; }
 
-  /* ===== RESPONSIVE ===== */
   @media (max-width: 900px) {
     .wrapper { padding: 0 20px; }
     .header-inner { grid-template-columns: 1fr; text-align: center; gap: 10px; }
@@ -1040,6 +1198,7 @@
     .article-grid { grid-template-columns: 1fr; }
     .article-list-item { grid-template-columns: 1fr; }
     .footer-top { grid-template-columns: 1fr; }
+    .notif-dropdown { width: 290px; right: -60px; }
   }
 
 </style>
@@ -1047,6 +1206,9 @@
 <body>
 
 <div class="progress" id="prog"></div>
+
+<!-- TOAST CONTAINER -->
+<div class="toast-container" id="toastContainer"></div>
 
 <!-- TOPBAR -->
 <div class="topbar">
@@ -1064,8 +1226,24 @@
     <div class="header-right">
       <div class="search-wrap">
         <span class="search-icon">🔍</span>
-        <input type="text" placeholder="Cari artikel...">
+        <input type="text" placeholder="Cari artikel..." id="searchInput">
       </div>
+
+      <!-- NOTIFICATION BELL -->
+      <div class="notif-wrap" id="notifWrap">
+        <button class="notif-btn" id="notifBtn" aria-label="Notifikasi">
+          🔔
+          <span class="notif-badge" id="notifBadge">0</span>
+        </button>
+        <div class="notif-dropdown" id="notifDropdown">
+          <div class="notif-head">
+            <span class="notif-head-title">✦ Notifikasi</span>
+            <button class="notif-clear" id="notifClear">Tandai semua dibaca</button>
+          </div>
+          <div class="notif-list" id="notifList"></div>
+        </div>
+      </div>
+
     </div>
   </div>
   <nav>
@@ -1134,17 +1312,13 @@
     </div>
   </section>
 
-  <!-- SECTION LABEL -->
   <div class="sec-label reveal">
     <span class="sec-label-text">Artikel Terbaru</span>
     <div class="sec-line"></div>
     <a href="#" class="sec-link">Lihat Semua →</a>
   </div>
 
-  <!-- MAIN CONTENT -->
   <div class="content-layout">
-
-    <!-- ARTICLES -->
     <div>
       <div class="article-grid reveal">
         <div class="article-card">
@@ -1212,7 +1386,6 @@
         </div>
       </div>
 
-      <!-- LIST -->
       <div class="reveal">
         <div class="article-list-item">
           <div class="list-thumb lt-1">🌐</div>
@@ -1250,8 +1423,6 @@
 
     <!-- SIDEBAR -->
     <aside class="sidebar">
-
-      <!-- MEMBERS -->
       <div class="members-card reveal">
         <div class="members-head">
           <span class="members-head-title">✦ Anggota Kelompok</span>
@@ -1299,16 +1470,14 @@
         </div>
       </div>
 
-      <!-- NEWSLETTER -->
       <div class="newsletter-box reveal">
         <div class="nl-label">✦ Newsletter</div>
         <div class="nl-title">Artikel terbaru langsung ke inbox</div>
         <p class="nl-desc">Dapatkan kiriman artikel pilihan dari kami setiap minggu.</p>
-        <input type="email" class="nl-input" placeholder="email@kamu.com">
-        <button class="nl-btn">Langganan →</button>
+        <input type="email" class="nl-input" id="nlEmail" placeholder="email@kamu.com">
+        <button class="nl-btn" id="nlBtn">Langganan →</button>
       </div>
 
-      <!-- TAGS -->
       <div class="tags-box reveal">
         <div class="tags-title">Topik</div>
         <div class="tags-wrap">
@@ -1324,11 +1493,9 @@
           <span class="tag">Aksesibilitas</span>
         </div>
       </div>
-
     </aside>
   </div>
 
-  <!-- QUOTE BANNER -->
   <div class="banner reveal">
     <div class="banner-quote">
       "Desain bukan hanya soal tampilan — ia soal <span>bagaimana sesuatu bekerja.</span>"
@@ -1375,26 +1542,11 @@
       </div>
       <div>
         <div class="footer-members-title">Anggota Kelompok</div>
-        <div class="footer-member">
-          <div class="footer-member-av">AE</div>
-          <span class="footer-member-name">Aditya Eka Saputra</span>
-        </div>
-        <div class="footer-member">
-          <div class="footer-member-av">MR</div>
-          <span class="footer-member-name">Muhammad Ramdani</span>
-        </div>
-        <div class="footer-member">
-          <div class="footer-member-av">VA</div>
-          <span class="footer-member-name">Valdinata Alfauzan</span>
-        </div>
-        <div class="footer-member">
-          <div class="footer-member-av">TK</div>
-          <span class="footer-member-name">Taufik Kurniawan</span>
-        </div>
-        <div class="footer-member">
-          <div class="footer-member-av">LA</div>
-          <span class="footer-member-name">Lazuardi Ananda</span>
-        </div>
+        <div class="footer-member"><div class="footer-member-av">AE</div><span class="footer-member-name">Aditya Eka Saputra</span></div>
+        <div class="footer-member"><div class="footer-member-av">MR</div><span class="footer-member-name">Muhammad Ramdani</span></div>
+        <div class="footer-member"><div class="footer-member-av">VA</div><span class="footer-member-name">Valdinata Alfauzan</span></div>
+        <div class="footer-member"><div class="footer-member-av">TK</div><span class="footer-member-name">Taufik Kurniawan</span></div>
+        <div class="footer-member"><div class="footer-member-av">LA</div><span class="footer-member-name">Lazuardi Ananda</span></div>
       </div>
     </div>
     <div class="footer-bottom">
@@ -1405,13 +1557,13 @@
 </footer>
 
 <script>
-  // Progress bar
+  // ===== PROGRESS BAR =====
   window.addEventListener('scroll', () => {
     const pct = (window.scrollY / (document.documentElement.scrollHeight - window.innerHeight)) * 100;
     document.getElementById('prog').style.width = pct + '%';
   });
 
-  // Scroll reveal
+  // ===== SCROLL REVEAL =====
   const obs = new IntersectionObserver(entries => {
     entries.forEach((e, i) => {
       if (e.isIntersecting) setTimeout(() => e.target.classList.add('visible'), i * 80);
@@ -1419,7 +1571,7 @@
   }, { threshold: 0.08 });
   document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
 
-  // Nav active
+  // ===== NAV ACTIVE =====
   document.querySelectorAll('.nav-item').forEach(item => {
     item.addEventListener('click', e => {
       e.preventDefault();
@@ -1427,6 +1579,165 @@
       item.classList.add('active');
     });
   });
+
+  // ===== NOTIFIKASI SYSTEM =====
+  let notifications = [
+    {
+      id: 1,
+      icon: '📝',
+      iconClass: 'ni-green',
+      msg: '<b>Artikel baru</b> dari Aditya — "Golden Ratio dalam Desain Web" telah diterbitkan.',
+      time: '5 mnt lalu',
+      unread: true
+    },
+    {
+      id: 2,
+      icon: '👥',
+      iconClass: 'ni-blue',
+      msg: '<b>Taufik Kurniawan</b> menambahkan artikel baru di kategori Sains.',
+      time: '1 jam lalu',
+      unread: true
+    },
+    {
+      id: 3,
+      icon: '🏷️',
+      iconClass: 'ni-amber',
+      msg: 'Topik <b>Responsive Design</b> sedang trending minggu ini.',
+      time: '3 jam lalu',
+      unread: true
+    },
+    {
+      id: 4,
+      icon: '✅',
+      iconClass: 'ni-green',
+      msg: 'Blog Kelompok Lima berhasil dipublikasikan untuk semester ini.',
+      time: 'Kemarin',
+      unread: false
+    }
+  ];
+
+  const notifBadge = document.getElementById('notifBadge');
+  const notifBtn = document.getElementById('notifBtn');
+  const notifDropdown = document.getElementById('notifDropdown');
+  const notifList = document.getElementById('notifList');
+  const notifClear = document.getElementById('notifClear');
+
+  function countUnread() {
+    return notifications.filter(n => n.unread).length;
+  }
+
+  function renderBadge() {
+    const count = countUnread();
+    if (count > 0) {
+      notifBadge.textContent = count > 9 ? '9+' : count;
+      notifBadge.classList.add('visible');
+    } else {
+      notifBadge.classList.remove('visible');
+    }
+  }
+
+  function renderNotifList() {
+    if (notifications.length === 0) {
+      notifList.innerHTML = '<div class="notif-empty">Tidak ada notifikasi</div>';
+      return;
+    }
+    notifList.innerHTML = notifications.map(n => `
+      <div class="notif-item ${n.unread ? 'unread' : ''}" data-id="${n.id}">
+        <div class="notif-icon ${n.iconClass}">${n.icon}</div>
+        <div class="notif-text">
+          <div class="notif-msg">${n.msg}</div>
+          <div class="notif-time">${n.time}</div>
+        </div>
+        ${n.unread ? '<div class="unread-dot"></div>' : ''}
+      </div>
+    `).join('');
+
+    notifList.querySelectorAll('.notif-item').forEach(item => {
+      item.addEventListener('click', () => {
+        const id = parseInt(item.dataset.id);
+        const notif = notifications.find(n => n.id === id);
+        if (notif && notif.unread) {
+          notif.unread = false;
+          renderNotifList();
+          renderBadge();
+        }
+      });
+    });
+  }
+
+  function toggleDropdown() {
+    notifDropdown.classList.toggle('open');
+  }
+
+  notifBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleDropdown();
+    renderNotifList();
+  });
+
+  notifClear.addEventListener('click', () => {
+    notifications.forEach(n => n.unread = false);
+    renderNotifList();
+    renderBadge();
+    showToast('Semua notifikasi ditandai dibaca', '#16a34a');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!document.getElementById('notifWrap').contains(e.target)) {
+      notifDropdown.classList.remove('open');
+    }
+  });
+
+  // ===== TOAST SYSTEM =====
+  function showToast(msg, color = '#111110') {
+    const container = document.getElementById('toastContainer');
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.innerHTML = `<span class="toast-dot" style="background:${color}"></span>${msg}`;
+    container.appendChild(toast);
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => toast.classList.add('show'));
+    });
+    setTimeout(() => {
+      toast.classList.add('hide');
+      setTimeout(() => toast.remove(), 300);
+    }, 3000);
+  }
+
+  // ===== NOTIF: tambah saat baca artikel =====
+  function addNotif(icon, iconClass, msg) {
+    const id = Date.now();
+    notifications.unshift({ id, icon, iconClass, msg, time: 'Baru saja', unread: true });
+    renderBadge();
+    // animasi bell shake
+    notifBadge.classList.remove('shake');
+    void notifBadge.offsetWidth;
+    notifBadge.classList.add('shake');
+  }
+
+  // ===== NOTIF: tag diklik =====
+  document.querySelectorAll('.tag').forEach(tag => {
+    tag.addEventListener('click', () => {
+      const topik = tag.textContent;
+      addNotif('🏷️', 'ni-amber', `Kamu melihat topik <b>${topik}</b>. Menampilkan artikel terkait.`);
+      showToast(`Topik: ${topik}`, '#d97706');
+    });
+  });
+
+  // ===== NOTIF: newsletter =====
+  document.getElementById('nlBtn').addEventListener('click', () => {
+    const email = document.getElementById('nlEmail').value.trim();
+    if (!email || !email.includes('@')) {
+      showToast('Masukkan email yang valid', '#dc2626');
+      return;
+    }
+    addNotif('📬', 'ni-green', `Email <b>${email}</b> berhasil didaftarkan ke newsletter.`);
+    showToast('Berhasil berlangganan newsletter!', '#16a34a');
+    document.getElementById('nlEmail').value = '';
+  });
+
+  // Inisialisasi badge
+  renderBadge();
 
   // ===== ARTICLE DATA =====
   const articles = [
@@ -1506,13 +1817,13 @@
       content: `
         <p>Setiap hari kita menghabiskan berjam-jam mengonsumsi konten di berbagai platform digital. Tapi pernahkah kamu bertanya — siapa yang memutuskan konten apa yang kamu lihat? Jawabannya: algoritma rekomendasi.</p>
         <h3>Apa Itu Algoritma Rekomendasi?</h3>
-        <p>Algoritma rekomendasi adalah sistem kecerdasan buatan yang menganalisis perilaku pengguna untuk memprediksi konten apa yang paling mungkin akan disukai dan dilihat lebih lama. Semakin lama kamu menatap layar, semakin banyak data yang dikumpulkan.</p>
+        <p>Algoritma rekomendasi adalah sistem kecerdasan buatan yang menganalisis perilaku pengguna untuk memprediksi konten apa yang paling mungkin akan disukai dan dilihat lebih lama.</p>
         <blockquote>Platform tidak menampilkan konten terbaik — mereka menampilkan konten yang paling membuat kamu tetap di platform.</blockquote>
         <h3>Teknik di Baliknya</h3>
         <p><strong>Collaborative Filtering</strong> — "Pengguna yang mirip denganmu juga menyukai ini." Sistem membandingkan profilmu dengan jutaan pengguna lain untuk menemukan pola kesamaan. <strong>Content-Based Filtering</strong> — Menganalisis konten itu sendiri (kata kunci, durasi, topik) dan mencocokkannya dengan histori tontonanmu.</p>
         <p><strong>Deep Learning</strong> — YouTube, TikTok, dan Netflix menggunakan neural network yang sangat kompleks untuk memprediksi probabilitas klik, watch time, dan interaksi dengan akurasi yang terus meningkat setiap hari.</p>
         <h3>Dampaknya pada Kita</h3>
-        <p>Filter bubble adalah efek di mana algoritma semakin membatasi konten yang kita lihat hanya pada hal-hal yang sudah kita setujui. Ini bisa mempersempit perspektif dan memperkuat bias yang sudah ada. Kesadaran akan cara kerja algoritma adalah langkah pertama untuk menggunakannya secara lebih bijak.</p>
+        <p>Filter bubble adalah efek di mana algoritma semakin membatasi konten yang kita lihat hanya pada hal-hal yang sudah kita setujui. Kesadaran akan cara kerja algoritma adalah langkah pertama untuk menggunakannya secara lebih bijak.</p>
       `
     },
     {
@@ -1527,13 +1838,13 @@
       content: `
         <p>Sejak kemunculan ChatGPT, GitHub Copilot, dan berbagai AI coding assistant lainnya, pertanyaan ini semakin sering muncul: apakah masih worth it belajar koding dari nol di era AI?</p>
         <h3>Argumen yang Mengatakan "Tidak Perlu"</h3>
-        <p>Dengan AI, siapa pun bisa menghasilkan kode yang berfungsi hanya dengan mendeskripsikan apa yang diinginkan dalam bahasa natural. Prototyping yang dulu butuh berhari-hari kini bisa selesai dalam hitungan jam. Beberapa orang bahkan membangun produk digital tanpa menulis satu baris kode pun.</p>
+        <p>Dengan AI, siapa pun bisa menghasilkan kode yang berfungsi hanya dengan mendeskripsikan apa yang diinginkan dalam bahasa natural. Prototyping yang dulu butuh berhari-hari kini bisa selesai dalam hitungan jam.</p>
         <blockquote>"AI will not replace programmers. But programmers who use AI will replace those who don't." — Anonim</blockquote>
         <h3>Mengapa Tetap Harus Belajar</h3>
         <p>AI menghasilkan kode, tapi tidak selalu benar. Tanpa pemahaman dasar pemrograman, kamu tidak akan bisa mengevaluasi apakah kode yang dihasilkan AI itu aman, efisien, atau bahkan berfungsi dengan benar dalam konteks sistemmu.</p>
-        <p>Lebih dari itu, memahami cara berpikir komputasional — memecah masalah, menemukan pola, berpikir logis — adalah keterampilan kognitif yang jauh melampaui sekadar menulis kode. Ini adalah cara berpikir yang berguna di hampir semua bidang.</p>
+        <p>Lebih dari itu, memahami cara berpikir komputasional — memecah masalah, menemukan pola, berpikir logis — adalah keterampilan kognitif yang jauh melampaui sekadar menulis kode.</p>
         <h3>Kesimpulan</h3>
-        <p>Belajar koding masih sangat relevan — bahkan lebih penting dari sebelumnya. Tapi yang perlu berubah adalah cara belajarnya. Fokus bukan lagi pada menghafal sintaks, tapi pada memahami konsep, arsitektur, dan cara berkolaborasi dengan AI sebagai partner, bukan pengganti.</p>
+        <p>Belajar koding masih sangat relevan — bahkan lebih penting dari sebelumnya. Fokus bukan lagi pada menghafal sintaks, tapi pada memahami konsep, arsitektur, dan cara berkolaborasi dengan AI sebagai partner.</p>
       `
     },
     {
@@ -1548,11 +1859,10 @@
       content: `
         <p>Di dunia di mana pengguna mengakses web dari layar sekecil jam tangan hingga sebesar TV 4K, responsive design bukan lagi fitur tambahan — ia adalah keharusan dasar.</p>
         <h3>Tiga Pilar Responsive Design</h3>
-        <p>Responsive design berdiri di atas tiga fondasi utama. Pertama adalah <strong>fluid grid</strong> — layout yang menggunakan persentase bukan pixel tetap, sehingga proporsional di layar apapun. Kedua adalah <strong>flexible images</strong> — gambar yang tidak pernah melebihi container-nya dengan CSS sederhana: <code>img { max-width: 100%; }</code>.</p>
-        <p>Ketiga adalah <strong>media queries</strong> — aturan CSS yang diterapkan hanya pada ukuran layar tertentu. Inilah yang memungkinkan layout 3 kolom di desktop menjadi 1 kolom di mobile.</p>
+        <p>Responsive design berdiri di atas tiga fondasi utama. Pertama adalah <strong>fluid grid</strong> — layout yang menggunakan persentase bukan pixel tetap. Kedua adalah <strong>flexible images</strong> — gambar yang tidak pernah melebihi container-nya. Ketiga adalah <strong>media queries</strong> — aturan CSS yang diterapkan hanya pada ukuran layar tertentu.</p>
         <blockquote>Mobile-first bukan sekadar pendekatan teknis — ini adalah cara berpikir yang memaksa kamu untuk memprioritaskan konten yang benar-benar penting.</blockquote>
         <h3>Pendekatan Mobile-First</h3>
-        <p>Daripada membuat desain desktop lalu "menyesuaikan" ke mobile, pendekatan mobile-first justru memulai dari layar terkecil dulu, kemudian secara progresif menambah fitur dan kompleksitas untuk layar yang lebih besar. Hasilnya lebih bersih, lebih cepat, dan lebih mudah dimaintain.</p>
+        <p>Daripada membuat desain desktop lalu "menyesuaikan" ke mobile, pendekatan mobile-first justru memulai dari layar terkecil dulu, kemudian secara progresif menambah fitur dan kompleksitas untuk layar yang lebih besar.</p>
       `
     },
     {
@@ -1567,12 +1877,12 @@
       content: `
         <p>Font adalah salah satu keputusan desain yang paling berdampak, namun paling sering diabaikan. Pilihan font yang tepat bisa meningkatkan keterbacaan, membangun kepercayaan, dan mencerminkan karakter brand.</p>
         <h3>Serif vs Sans-Serif</h3>
-        <p>Font <strong>serif</strong> (seperti Georgia, Times New Roman) memiliki "kaki" kecil di ujung huruf. Mereka terasa klasik, elegan, dan terpercaya — cocok untuk artikel panjang, media berita, dan brand premium. Font <strong>sans-serif</strong> (seperti Helvetica, Arial) lebih bersih dan modern — ideal untuk UI digital, aplikasi, dan brand teknologi.</p>
+        <p>Font <strong>serif</strong> memiliki "kaki" kecil di ujung huruf — terasa klasik, elegan, dan terpercaya. Font <strong>sans-serif</strong> lebih bersih dan modern — ideal untuk UI digital dan brand teknologi.</p>
         <blockquote>Tipografi yang baik adalah tipografi yang tidak kamu sadari — ia hanya membuat membaca terasa mudah dan menyenangkan.</blockquote>
         <h3>Ukuran dan Spasi</h3>
-        <p>Body text ideal untuk web adalah 16-18px dengan line-height 1.5-1.7. Terlalu kecil membuat mata cepat lelah, terlalu besar terasa tidak profesional. Letter-spacing sedikit ditambah pada heading membuat judul terasa lebih berbobot dan mudah dibaca sekilas.</p>
+        <p>Body text ideal untuk web adalah 16-18px dengan line-height 1.5-1.7. Terlalu kecil membuat mata cepat lelah, terlalu besar terasa tidak profesional.</p>
         <h3>Pairing Font</h3>
-        <p>Kombinasi font yang berhasil biasanya mempertemukan dua kepribadian berbeda: satu font display yang ekspresif untuk heading (biasanya serif), dan satu font clean untuk body text (biasanya sans-serif). Kontras yang tepat menciptakan hierarki visual yang memandu mata pembaca secara alami.</p>
+        <p>Kombinasi font yang berhasil biasanya mempertemukan dua kepribadian berbeda: satu font display yang ekspresif untuk heading, dan satu font clean untuk body text. Kontras yang tepat menciptakan hierarki visual yang memandu mata pembaca secara alami.</p>
       `
     },
     {
@@ -1587,11 +1897,10 @@
       content: `
         <p>Setiap detik, mata manusia menangkap jutaan bit informasi visual. Tapi otak tidak memproses semuanya secara merata — ia memilih, menyaring, dan memprioritaskan berdasarkan pola yang sudah dipelajari sepanjang hidup.</p>
         <h3>Pola Membaca F dan Z</h3>
-        <p>Penelitian eye-tracking menunjukkan bahwa ketika membaca halaman web, mata manusia cenderung mengikuti pola "F" — membaca baris pertama penuh, kemudian baris kedua lebih pendek, kemudian menscroll ke bawah di sisi kiri saja. Pada halaman dengan visual lebih kaya, mata mengikuti pola "Z".</p>
+        <p>Penelitian eye-tracking menunjukkan bahwa ketika membaca halaman web, mata manusia cenderung mengikuti pola "F" — membaca baris pertama penuh, kemudian baris kedua lebih pendek, kemudian menscroll ke bawah di sisi kiri saja.</p>
         <blockquote>Pengguna tidak membaca halaman web — mereka memindainya. Desain yang baik memanfaatkan pola pemindaian ini.</blockquote>
         <h3>Prinsip Gestalt dalam UI</h3>
         <p>Prinsip Gestalt menjelaskan bagaimana otak mengorganisasi visual menjadi kelompok bermakna. <strong>Proximity</strong> — elemen yang berdekatan dianggap berhubungan. <strong>Similarity</strong> — elemen yang mirip dianggap satu grup. <strong>Continuity</strong> — mata mengikuti garis dan kurva secara alami.</p>
-        <p>Desainer UI yang memahami prinsip ini bisa mengarahkan perhatian pengguna ke elemen yang paling penting tanpa perlu tanda panah atau teks instruksi eksplisit.</p>
       `
     },
     {
@@ -1610,7 +1919,6 @@
         <blockquote>Kode yang kamu tulis hari ini adalah bukti nyata kemampuanmu yang tidak bisa dipalsukan oleh CV manapun.</blockquote>
         <h3>Apa yang Harus Diisi?</h3>
         <p>Mulai dari proyek kecil: kalkulator, to-do app, atau website sederhana. Yang penting adalah proses belajar dan iterasinya terlihat. Tambahkan README yang menjelaskan apa proyeknya, teknologi yang digunakan, dan cara menjalankannya.</p>
-        <p>Berkontribusi ke open source, meski hanya memperbaiki typo di dokumentasi, juga menunjukkan bahwa kamu bisa berkolaborasi dalam ekosistem pengembangan software yang nyata.</p>
         <h3>Mulai Hari Ini</h3>
         <p>Tidak perlu menunggu punya proyek "keren". Upload apa yang sudah kamu buat, meski terasa sederhana. Setiap commit adalah bukti nyata perjalanan belajarmu — dan itu jauh lebih berharga dari sertifikat manapun.</p>
       `
@@ -1635,6 +1943,9 @@
     overlay.classList.add('open');
     document.body.style.overflow = 'hidden';
     overlay.scrollTop = 0;
+
+    // Tambah notif saat artikel dibuka
+    addNotif('📖', 'ni-blue', `Kamu sedang membaca — <b>${a.title.substring(0, 40)}...</b>`);
   }
 
   function closeModal() {
@@ -1646,26 +1957,25 @@
   overlay.addEventListener('click', e => { if (e.target === overlay) closeModal(); });
   document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
 
-  // Attach click to hero title
   document.querySelector('.hero-title').addEventListener('click', () => openArticle('golden-ratio'));
 
-  // Attach click to sidebar articles
   const sideIds = ['css-grid', 'psikologi-warna', 'algoritma', 'belajar-koding'];
   document.querySelectorAll('.side-article').forEach((el, i) => {
     el.addEventListener('click', () => openArticle(sideIds[i]));
   });
 
-  // Attach click to article cards (grid)
   const cardIds = ['responsive', 'tipografi', 'otak-visual', 'github-portofolio'];
   document.querySelectorAll('.article-card').forEach((el, i) => {
     el.addEventListener('click', () => openArticle(cardIds[i]));
   });
 
-  // Attach click to list articles
   const listIds = ['golden-ratio', 'responsive'];
   document.querySelectorAll('.article-list-item').forEach((el, i) => {
     el.addEventListener('click', () => openArticle(listIds[i]));
   });
+
+  // ===== WELCOME TOAST =====
+  setTimeout(() => showToast('Selamat datang di Blog Kelompok Lima!', '#16a34a'), 1200);
 </script>
 
 </body>
