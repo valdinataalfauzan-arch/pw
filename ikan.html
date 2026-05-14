@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaWorld | Keajaiban Dunia Ikan</title>
+    <style>
+        /* CSS Reset & Variabel Warna */
+        :root {
+            --primary: #0077b6;
+            --secondary: #00b4d8;
+            --dark: #03045e;
+            --light: #caf0f8;
+            --white: #ffffff;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: #f4f9f9;
+            color: #333;
+        }
+
+        /* Bagian Navigasi (Header) */
+        header {
+            background-color: var(--dark);
+            padding: 1rem 5%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        header h1 {
+            color: var(--light);
+            font-size: 1.8rem;
+            letter-spacing: 1px;
+        }
+
+        header h1 span {
+            color: var(--secondary);
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav a {
+            color: var(--white);
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+        }
+
+        nav a:hover {
+            color: var(--secondary);
+        }
+
+        /* Bagian Hero (Spanduk Utama) */
+        .hero {
+            height: 80vh;
+            background: linear-gradient(rgba(3, 4, 94, 0.6), rgba(0, 119, 182, 0.6)), 
+                        url('https://images.unsplash.com/photo-1524704654690-b56c05c78a00?ixlib=rb-1.2.1&auto=format&fit=crop&w=1920&q=80') center/cover;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: var(--white);
+            padding: 0 20px;
+        }
+
+        .hero h2 {
+            font-size: 3.5rem;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 8px rgba(0,0,0,0.5);
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 600px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .btn {
+            padding: 12px 30px;
+            background-color: var(--secondary);
+            color: var(--dark);
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 180, 216, 0.4);
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background-color: var(--light);
+            box-shadow: 0 6px 20px rgba(0, 180, 216, 0.6);
+        }
+
+        /* Bagian Koleksi/Galeri Ikan */
+        .koleksi {
+            padding: 5rem 5%;
+            text-align: center;
+        }
+
+        .koleksi h2 {
+            color: var(--dark);
+            font-size: 2.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+        }
+
+        .card {
+            background: var(--white);
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.15);
+        }
+
+        .card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover img {
+            transform: scale(1.05);
+        }
+
+        .card-content {
+            padding: 25px;
+            text-align: left;
+        }
+
+        .card h3 {
+            color: var(--primary);
+            margin-bottom: 10px;
+            font-size: 1.4rem;
+        }
+
+        .card p {
+            color: #666;
+            line-height: 1.5;
+            margin-bottom: 15px;
+        }
+
+        .read-more {
+            color: var(--secondary);
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 0.9rem;
+        }
+
+        .read-more:hover {
+            text-decoration: underline;
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--dark);
+            color: var(--light);
+            text-align: center;
+            padding: 2rem 5%;
+            margin-top: 2rem;
+        }
+
+        /* Responsif untuk Layar HP */
+        @media (max-width: 768px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .hero h2 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Aqua<span>World</span></h1>
+        <nav>
+            <ul>
+                <li><a href="#">Beranda</a></li>
+                <li><a href="#koleksi">Koleksi</a></li>
+                <li><a href="#">Artikel</a></li>
+                <li><a href="#">Kontak</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h2>Jelajahi Keindahan Bawah Laut</h2>
+        <p>Temukan berbagai spesies ikan eksotis, tips perawatan akuarium, dan keajaiban ekosistem air tawar maupun air laut.</p>
+        <a href="#koleksi" class="btn">Mulai Menjelajah</a>
+    </section>
+
+    <section id="koleksi" class="koleksi">
+        <h2>Koleksi Ikan Populer</h2>
+        <div class="grid">
+            <!-- Kartu 1 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1522069169874-c58ec4b76be1?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Ikan Koi">
+                <div class="card-content">
+                    <h3>Koi Premium</h3>
+                    <p>Ikan hias air tawar yang melambangkan keberuntungan dan kemakmuran. Cocok untuk kolam taman Anda.</p>
+                    <a href="#" class="read-more">Pelajari lebih lanjut &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Kartu 2 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Ikan Cupang">
+                <div class="card-content">
+                    <h3>Betta Splendens (Cupang)</h3>
+                    <p>Dikenal dengan siripnya yang anggun dan warnanya yang mencolok. Ikan soliter yang sangat mudah dirawat.</p>
+                    <a href="#" class="read-more">Pelajari lebih lanjut &rarr;</a>
+                </div>
+            </div>
+
+            <!-- Kartu 3 -->
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1534043464124-3be32fe000c9?ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=80" alt="Ikan Laut">
+                <div class="card-content">
+                    <h3>Ikan Badut (Clownfish)</h3>
+                    <p>Bintang terumbu karang sejati. Ikan air laut yang hidup bersimbiosis dengan anemon laut.</p>
+                    <a href="#" class="read-more">Pelajari lebih lanjut &rarr;</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2026 AquaWorld. Dibuat dengan cinta untuk para pecinta ikan.</p>
+    </footer>
+
+</body>
+</html>
